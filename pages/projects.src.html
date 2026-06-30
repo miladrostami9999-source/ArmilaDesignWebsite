@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <script>document.documentElement.classList.add("pt-init");</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects | Armila Design Studio</title>
+  <meta name="description" content="Browse Armila Design Studio's portfolio across villa, interior, commercial, residential, office &amp; retail, and landscape design." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+
+  <style>
+    /* Grain texture overlay */
+    .texture-overlay {
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      mix-blend-mode: multiply;
+    }
+
+    /*
+      Project card number — large, bold, sits in the bottom-left of the image.
+      In default state: white & semi-transparent (matches the grayscale tone).
+      On hover: fully opaque white (the image itself goes colour, number pops).
+      The number is positioned so it slightly overflows the bottom edge of the
+      image container, exactly like the reference image.
+    */
+    .proj-num {
+      position: absolute;
+      bottom: -0.15em;
+      right: 0.12em;          /* right-aligned, close to edge */
+      font-family: 'Spline Sans', sans-serif;
+      font-size: clamp(5.5rem, 9.9vw, 9.9rem);   /* 10% larger */
+      font-weight: 700;
+      line-height: 1;
+      color: rgba(255,255,255,0.60);              /* 60% opacity */
+      transition: color 500ms ease-in-out, opacity 500ms ease-in-out;
+      pointer-events: none;
+      z-index: 10;
+      letter-spacing: -0.04em;
+      width: max-content;
+    }
+
+    /* On hover (real pointers only — see touch fallback below): number
+       becomes fully white and visible */
+    @media (hover: hover) and (pointer: fine) {
+      .group:hover .proj-num {
+        color: rgba(255,255,255,0.95);
+      }
+    }
+
+    /* Image: grayscale by default, full colour on hover — 500ms smooth */
+    .proj-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%);
+      transition: filter 500ms ease-in-out, transform 500ms ease-in-out;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .group:hover .proj-img {
+        filter: grayscale(0%);
+        transform: scale(1.03);
+      }
+    }
+
+    /* Dark gradient overlay fades in on hover for depth */
+    .proj-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity 500ms ease-in-out;
+      pointer-events: none;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .group:hover .proj-overlay {
+        opacity: 1;
+      }
+    }
+
+    /* Touch devices can't hover — show every card in its "revealed"
+       state by default instead of leaving it permanently grayscale/dim. */
+    @media not all and (hover: hover) {
+      .proj-img { filter: grayscale(0%); }
+      .proj-overlay { opacity: 1; }
+      .proj-num { color: rgba(255,255,255,0.95); }
+    }
+
+    /* Caption text: black by default, brand-blue on hover */
+    .proj-title {
+      font-family: 'Spline Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #171818;
+      transition: color 300ms ease-out;
+    }
+    .group:hover .proj-title {
+      color: #6e86d6;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body antialiased min-h-screen flex flex-col">
+  <div class="texture-overlay" aria-hidden="true"></div>
+
+  <!-- @include navbar -->
+
+  <main class="flex-grow pt-[76px] pb-24 px-container-padding-mobile md:px-container-padding-desktop max-w-[1600px] mx-auto w-full">
+    <header class="text-center mb-16 reveal">
+      <h1 class="font-headline text-headline-lg md:text-display-lg text-primary tracking-widest uppercase">Projects</h1>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-bento-gap h-auto lg:h-[70vh] min-h-[600px]">
+
+      <!-- 01 Villa Design -->
+      <a href="villa-design.html" class="group flex flex-col h-full reveal" data-reveal-delay="100">
+        <div class="flex-grow overflow-hidden rounded-sm relative">
+          <img loading="lazy" alt="Villa Design project" class="proj-img" src="images/projects/listing-thumbnails/villa.webp">
+          <div class="proj-overlay"></div>
+          <span class="proj-num" aria-hidden="true">1</span>
+        </div>
+        <div class="mt-4 flex flex-col items-center text-center">
+          <p class="proj-title">Villa Design</p>
+        </div>
+      </a>
+
+      <!-- 02 Interior Design -->
+      <a href="interior-design.html" class="group flex flex-col h-full reveal" data-reveal-delay="200">
+        <div class="flex-grow overflow-hidden rounded-sm relative">
+          <img loading="lazy" decoding="async" alt="Interior Design project" class="proj-img" src="images/projects/listing-thumbnails/interior.webp">
+          <div class="proj-overlay"></div>
+          <span class="proj-num" aria-hidden="true">2</span>
+        </div>
+        <div class="mt-4 flex flex-col items-center text-center">
+          <p class="proj-title">Interior Design</p>
+        </div>
+      </a>
+
+      <!-- 03 Commercial Design -->
+      <a href="commercial-design.html" class="group flex flex-col h-full reveal" data-reveal-delay="300">
+        <div class="flex-grow overflow-hidden rounded-sm relative">
+          <img loading="lazy" decoding="async" alt="Commercial Design project" class="proj-img" src="images/projects/listing-thumbnails/commercial.webp">
+          <div class="proj-overlay"></div>
+          <span class="proj-num" aria-hidden="true">3</span>
+        </div>
+        <div class="mt-4 flex flex-col items-center text-center">
+          <p class="proj-title">Commercial Design</p>
+        </div>
+      </a>
+
+      <!-- 04 Residential Design -->
+      <a href="residential-design.html" class="group flex flex-col h-full reveal" data-reveal-delay="400">
+        <div class="flex-grow overflow-hidden rounded-sm relative">
+          <img loading="lazy" decoding="async" alt="Residential Design project" class="proj-img" src="images/projects/listing-thumbnails/residential.webp">
+          <div class="proj-overlay"></div>
+          <span class="proj-num" aria-hidden="true">4</span>
+        </div>
+        <div class="mt-4 flex flex-col items-center text-center">
+          <p class="proj-title">Residential Design</p>
+        </div>
+      </a>
+
+      <!-- 05 Office & Retail Design -->
+      <a href="office-retail-design.html" class="group flex flex-col h-full reveal" data-reveal-delay="500">
+        <div class="flex-grow overflow-hidden rounded-sm relative">
+          <img loading="lazy" decoding="async" alt="Office and Retail Design project" class="proj-img" src="images/projects/listing-thumbnails/office-retail.webp">
+          <div class="proj-overlay"></div>
+          <span class="proj-num" aria-hidden="true">5</span>
+        </div>
+        <div class="mt-4 flex flex-col items-center text-center">
+          <p class="proj-title">Office &amp; Retail Design</p>
+        </div>
+      </a>
+
+      <!-- 06 Landscape Design -->
+      <a href="landscape-design.html" class="group flex flex-col h-full reveal" data-reveal-delay="600">
+        <div class="flex-grow overflow-hidden rounded-sm relative">
+          <img loading="lazy" decoding="async" alt="Landscape Design project" class="proj-img" src="images/projects/listing-thumbnails/landscape.webp">
+          <div class="proj-overlay"></div>
+          <span class="proj-num" aria-hidden="true">6</span>
+        </div>
+        <div class="mt-4 flex flex-col items-center text-center">
+          <p class="proj-title">Landscape Design</p>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+  <!-- @include footer -->
+
+  <script src="js/vendor/lenis.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

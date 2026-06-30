@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <script>document.documentElement.classList.add("pt-init");</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Villa Design | Armila Design Studio</title>
+  <meta name="description" content="Three villa case studies from Armila Design Studio: Aroeira Villa in Portugal, Narenj Villa in Azerbaijan, and Layers Villa in the UAE." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@600;700&family=Public+Sans:wght@400;700&family=Cormorant+Garamond:wght@300;400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+
+  <style>
+    /*
+      PROJECT GALLERY RULE: images keep their native aspect ratio always.
+      No object-fit:cover cropping anywhere on this page — each <img> sits
+      inside a container sized to its own intrinsic ratio via CSS aspect-ratio,
+      and uses object-fit:contain as a safety net only (never crops).
+      Colour stays fixed — no grayscale/hover-colour behaviour on this page.
+    */
+    .gallery-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    /* Each project section gets a distinct accent identity so the transition
+       between projects is felt while scrolling, not just read. */
+    .project-aroeira   { background-color: #f4f6f3; }
+    .project-narenj     { background-color: #f2f1ee; }
+    .project-layers      { background-color: #15171c; color: #f2f2f0; }
+
+    .project-divider {
+      height: 1px;
+      width: 100%;
+      background: linear-gradient(to right, transparent, currentColor, transparent);
+      opacity: 0.15;
+    }
+
+  </style>
+</head>
+<body class="bg-background text-on-surface selection:bg-secondary-container selection:text-on-secondary-container font-body overflow-x-hidden">
+
+  <!-- @include navbar -->
+
+  <main class="pt-[76px]">
+
+    <!-- Page Header -->
+    <section class="px-container-padding-mobile md:px-container-padding-desktop max-w-site mx-auto mb-24 md:mb-32 reveal">
+      <h1 class="font-serif text-[56px] md:text-[140px] leading-none tracking-tight text-primary-container mb-10 text-center md:text-left">Villa Design</h1>
+      <div class="flex justify-center md:justify-end">
+        <div class="max-w-xl border-l border-outline pl-8">
+          <p class="font-serif text-on-surface-variant leading-relaxed italic text-lg md:text-xl">"Architecture is the learned game, correct and magnificent, of forms assembled in the light."</p>
+          <p class="font-body text-on-surface-variant mt-4">Three private residences, three landscapes — each villa shaped by the silent rhythm of its own site.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════
+         PROJECT 01 — AROEIRA VILLA, PORTUGAL
+         ════════════════════════════════════════════════════════════ -->
+    <article class="project-aroeira py-20 md:py-32" id="aroeira-villa">
+      <div class="px-container-padding-mobile md:px-container-padding-desktop max-w-site mx-auto">
+
+        <!-- Hero -->
+        <div class="reveal mb-16">
+          <span class="font-label text-label-caps text-secondary block mb-3 tracking-[0.2em]">PROJECT 01 — PORTUGAL</span>
+          <h2 class="font-serif text-[40px] md:text-[88px] leading-[0.95] tracking-tight text-primary mb-8">Aroeira Villa</h2>
+          <p class="font-body text-on-surface-variant text-lg max-w-2xl leading-relaxed">
+            Set against a pine forest and a still lily pond, Aroeira Villa lets a single sculptural roofline tie its two wings together — a private sanctuary where the wave of white concrete frames the water below.
+          </p>
+        </div>
+
+        <div class="reveal overflow-hidden rounded-lg mb-16">
+          <img loading="lazy" decoding="async" alt="Aroeira Villa, Portugal — exterior hero view" class="gallery-img" src="images/projects/villa-01-aroeira-portugal/hero.webp" style="aspect-ratio: 3 / 2;">
+        </div>
+
+        <!-- Gallery: masonry respecting native ratios -->
+        <div class="masonry masonry-1 masonry-md-2 reveal">
+          <div class="overflow-hidden rounded-lg">
+            <img loading="lazy" decoding="async" alt="Aroeira Villa exterior view" class="gallery-img" src="images/projects/villa-01-aroeira-portugal/exterior-02.webp" style="aspect-ratio: 3/2;">
+          </div>
+          <div class="overflow-hidden rounded-lg">
+            <img loading="lazy" decoding="async" alt="Aroeira Villa kitchen" class="gallery-img" src="images/projects/villa-01-aroeira-portugal/kitchen.webp" style="aspect-ratio: 5/4;">
+          </div>
+          <div class="overflow-hidden rounded-lg">
+            <img loading="lazy" decoding="async" alt="Aroeira Villa living room" class="gallery-img" src="images/projects/villa-01-aroeira-portugal/living-01.webp" style="aspect-ratio: 5/4;">
+          </div>
+          <div class="overflow-hidden rounded-lg">
+            <img loading="lazy" decoding="async" alt="Aroeira Villa driveway approach" class="gallery-img" src="images/projects/villa-01-aroeira-portugal/exterior-03.webp" style="aspect-ratio: 3/2;">
+          </div>
+          <div class="overflow-hidden rounded-lg">
+            <img loading="lazy" decoding="async" alt="Aroeira Villa indoor pool corridor" class="gallery-img" src="images/projects/villa-01-aroeira-portugal/interior-pool.webp" style="aspect-ratio: 10/7;">
+          </div>
+          <div class="overflow-hidden rounded-lg">
+            <img loading="lazy" decoding="async" alt="Aroeira Villa family room" class="gallery-img" src="images/projects/villa-01-aroeira-portugal/living-02.webp" style="aspect-ratio: 5/4;">
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <div class="project-divider text-primary"></div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         PROJECT 02 — NARENJ VILLA, AZERBAIJAN
+         ════════════════════════════════════════════════════════════ -->
+    <article class="project-narenj py-20 md:py-32" id="narenj-villa">
+      <div class="px-container-padding-mobile md:px-container-padding-desktop max-w-site mx-auto">
+
+        <div class="reveal mb-16">
+          <span class="font-label text-label-caps text-secondary block mb-3 tracking-[0.2em]">PROJECT 02 — AZERBAIJAN</span>
+          <h2 class="font-serif text-[40px] md:text-[88px] leading-[0.95] tracking-tight text-primary mb-8">Narenj Villa</h2>
+          <p class="font-body text-on-surface-variant text-lg max-w-2xl leading-relaxed">
+            Sharp folded planes in pale stucco and dark timber meet a marble-floored interior of restrained luxury — a study in geometric confidence set within a quiet residential plot.
+          </p>
+        </div>
+
+        <div class="reveal overflow-hidden rounded-lg mb-16">
+          <img loading="lazy" decoding="async" alt="Narenj Villa, Azerbaijan — exterior hero view" class="gallery-img" src="images/projects/villa-02-narenj-azerbaijan/hero.webp" style="aspect-ratio: 1/1;">
+        </div>
+
+        <!-- Square-format gallery — Narenj's renders are all 1:1, so a clean grid suits them -->
+        <div class="masonry masonry-2 masonry-md-3 reveal">
+          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Narenj Villa entrance detail" class="gallery-img" src="images/projects/villa-02-narenj-azerbaijan/exterior-02.webp" style="aspect-ratio:1/1;"></div>
+          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Narenj Villa staircase exterior" class="gallery-img" src="images/projects/villa-02-narenj-azerbaijan/exterior-03.webp" style="aspect-ratio:1/1;"></div>
+          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Narenj Villa rooftop terrace" class="gallery-img" src="images/projects/villa-02-narenj-azerbaijan/exterior-04.webp" style="aspect-ratio:1/1;"></div>
+          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Narenj Villa pool view" class="gallery-img" src="images/projects/villa-02-narenj-azerbaijan/exterior-05.webp" style="aspect-ratio:1/1;"></div>
+          
+          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Narenj Villa living room with marble feature wall" class="gallery-img" src="images/projects/villa-02-narenj-azerbaijan/interior-01.webp" style="aspect-ratio:1/1;"></div>
+          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Narenj Villa double-height living space" class="gallery-img" src="images/projects/villa-02-narenj-azerbaijan/interior-02.webp" style="aspect-ratio:1/1;"></div>
+          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Narenj Villa games room" class="gallery-img" src="images/projects/villa-02-narenj-azerbaijan/interior-03.webp" style="aspect-ratio:1/1;"></div>
+          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Narenj Villa kitchen" class="gallery-img" src="images/projects/villa-02-narenj-azerbaijan/interior-04.webp" style="aspect-ratio:1/1;"></div>
+          
+          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Narenj Villa family room" class="gallery-img" src="images/projects/villa-02-narenj-azerbaijan/interior-06.webp" style="aspect-ratio:1/1;"></div>
+        </div>
+
+      </div>
+    </article>
+
+    <div class="project-divider text-primary"></div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         PROJECT 03 — LAYERS VILLA, UAE
+         ════════════════════════════════════════════════════════════ -->
+    <article class="project-layers py-20 md:py-32" id="layers-villa">
+      <div class="px-container-padding-mobile md:px-container-padding-desktop max-w-site mx-auto">
+
+        <div class="reveal mb-16">
+          <span class="font-label text-label-caps text-secondary block mb-3 tracking-[0.2em]">PROJECT 03 — UNITED ARAB EMIRATES</span>
+          <h2 class="font-serif text-[40px] md:text-[88px] leading-[0.95] tracking-tight mb-8" style="color:#f2f2f0;">Layers Villa</h2>
+          <p class="text-lg max-w-2xl leading-relaxed" style="color:#b8b9b6;">
+            Stacked horizontal planes and a glowing glass volume frame the pool at dusk — a villa designed to be experienced after dark, where warm interior light becomes the architecture's main material.
+          </p>
+        </div>
+
+        <div class="reveal overflow-hidden rounded-lg mb-16">
+          <img loading="lazy" decoding="async" alt="Layers Villa, UAE — exterior hero view at dusk" class="gallery-img" src="images/projects/villa-03-layers-uae/hero.webp" style="aspect-ratio: 1/1;">
+        </div>
+
+        <div class="masonry masonry-2 masonry-md-4 reveal">
+          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Layers Villa palm tree courtyard at dusk" class="gallery-img" src="images/projects/villa-03-layers-uae/feature-02.webp" style="aspect-ratio:1/1;"></div>
+          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Layers Villa pool and glass volume" class="gallery-img" src="images/projects/villa-03-layers-uae/feature-03.webp" style="aspect-ratio:1/1;"></div>
+          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Layers Villa firepit lounge" class="gallery-img" src="images/projects/villa-03-layers-uae/feature-04.webp" style="aspect-ratio:1/1;"></div>
+          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Layers Villa glass room and reflecting pool" class="gallery-img" src="images/projects/villa-03-layers-uae/feature-05.webp" style="aspect-ratio:1/1;"></div>
+        </div>
+
+        <!-- Closing CTA, kept on the dark section for a strong finish -->
+        <div class="mt-24 reveal text-center">
+          <h3 class="font-serif text-3xl md:text-5xl mb-6" style="color:#f2f2f0;">Continue Exploring</h3>
+          <p class="font-body text-base mb-8 max-w-md mx-auto" style="color:#f2f2f0; opacity:0.65;">Discover the rest of our portfolio across villas, interiors, commercial spaces, and more.</p>
+          <a href="projects.html" class="return-to-project-btn group inline-flex items-center gap-3 px-10 py-4 font-label text-label-caps uppercase tracking-[0.1em]" style="--rtp-fill:#f2f2f0; --rtp-hover-text:#15171c; border:1px solid rgba(242,242,240,0.4); color:#f2f2f0; border-radius: var(--site-radius);">
+            <span class="return-to-project-btn__fill" aria-hidden="true"></span>
+            <span class="material-symbols-outlined relative z-[1] transition-transform duration-500 ease-spring group-hover:-translate-x-1" aria-hidden="true">arrow_back</span>
+            <span class="relative z-[1]">Return to Project</span>
+          </a>
+        </div>
+
+      </div>
+    </article>
+
+  </main>
+
+  <!-- @include footer -->
+
+  <script src="js/vendor/lenis.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

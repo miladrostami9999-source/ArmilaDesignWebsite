@@ -1,0 +1,682 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   Page Loader Overlay — White Opaque + Logo Glow Pulse
+   --------------------------------------------------------------------------
+   Fully opaque WHITE background, matching the site's dominant light theme.
+   The logo keeps its ORIGINAL dark line color — no invert. Glow is achieved
+   via layered drop-shadow blurs in the brand/primary dark tone, pulsing to
+   create a soft "lines glowing" breathing effect, fully visible on white.
+   ========================================================================== */
+#page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  /* 100% opaque white — matches the site's light theme */
+  background: #f9f9f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: -webkit-fill-available;
+  opacity: 1;
+  transition: opacity 0.32s ease;
+  will-change: opacity;
+  pointer-events: all;
+}
+#page-loader.loader-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Stack container — single image now (no invert layers needed) */
+.page-loader-stack {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+  margin: auto;
+}
+
+.pll {
+  position: absolute;
+  inset: -32px;
+  width:  calc(100% + 64px);
+  height: calc(100% + 64px);
+  object-fit: contain;
+  display: block;
+}
+
+/* ── Single logo layer, original colors, glow via drop-shadow ─────────── */
+.pll-sharp {
+  animation: pll-glow 2.4s ease-in-out infinite;
+}
+@keyframes pll-glow {
+  0%, 100% {
+    filter:
+      drop-shadow(0 0  3px rgba(23,24,24,0.10))
+      drop-shadow(0 0  8px rgba(23,24,24,0.05));
+    opacity: 0.75;
+  }
+  50% {
+    filter:
+      drop-shadow(0 0  6px rgba(23,24,24,0.38))
+      drop-shadow(0 0 16px rgba(23,24,24,0.22))
+      drop-shadow(0 0 32px rgba(23,24,24,0.12))
+      drop-shadow(0 0 56px rgba(23,24,24,0.05));
+    opacity: 1;
+  }
+}
+
+/* Unused legacy layers kept hidden in case markup still references them */
+.pll-halo, .pll-mid, .pll-tight {
+  display: none;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  #page-loader { display: none !important; }
+}
+
+/* ==========================================================================
+   Mobile navigation drawer
+   --------------------------------------------------------------------------
+   Soft dropdown anchored just below the navbar — NOT full-screen. Opens
+   downward with a smooth max-height + fade, like a curtain unrolling.
+   ========================================================================== */
+#mobile-menu {
+  display: none;
+}
+@media (max-width: 767px) {
+  #mobile-menu {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    background: rgba(250, 250, 249, 0.98);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.12);
+    opacity: 0;
+    transition: max-height 0.6s cubic-bezier(0.65, 0, 0.35, 1),
+      opacity 0.45s ease;
+  }
+  #mobile-menu.is-open {
+    max-height: 28rem;
+    opacity: 1;
+  }
+  #mobile-menu .mobile-menu-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2.5rem 0 3rem;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  #mobile-menu.is-open .mobile-menu-inner {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.15s;
+  }
+  #mobile-menu .nav-link {
+    color: rgba(23, 24, 24, 0.7);
+  }
+  #mobile-menu .nav-link.active {
+    color: #6e86d6;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #mobile-menu,
+  #mobile-menu .mobile-menu-inner {
+    transition: none !important;
+  }
+}
+
+/* Hamburger icon — three bars that spin together into an X */
+.hamburger-bars {
+  position: relative;
+  display: inline-block;
+  width: 24px;
+  height: 16px;
+}
+.hamburger-bar {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s ease, top 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hamburger-bar--top { top: 0; }
+.hamburger-bar--mid { top: 7px; }
+.hamburger-bar--bottom { top: 14px; }
+#mobile-menu-button.is-open .hamburger-bar--top {
+  top: 7px;
+  transform: rotate(225deg);
+}
+#mobile-menu-button.is-open .hamburger-bar--mid {
+  opacity: 0;
+  transform: rotate(180deg) scale(0);
+}
+#mobile-menu-button.is-open .hamburger-bar--bottom {
+  top: 7px;
+  transform: rotate(135deg);
+}
+
+/* ==========================================================================
+   Smooth cross-page navigation
+   --------------------------------------------------------------------------
+   The page loader overlay (#page-loader) now handles all visual coverage
+   during navigation. The pt-init / pt-ready / pt-exit body-opacity system
+   is intentionally disabled — keeping it active alongside the loader
+   caused a double-flash (body fading in/out while the loader was also
+   transitioning). The inline `pt-init` script in each page <head> is
+   harmless — it adds a class that no longer has any CSS effect.
+   ========================================================================== */
+/* pt-init rules removed — loader overlay replaces this system */
+@media (prefers-reduced-motion: reduce) {
+  /* nothing needed here — loader is hidden via its own reduced-motion rule */
+}
+
+/* ==========================================================================
+   ARMILA DESIGN STUDIO — base layer
+   ========================================================================== */
+
+/*
+  ── GLOBAL ROUND-EDGE CONTROL ─────────────────────────────────────────────
+  Change the value of --site-radius to adjust rounding across the whole site.
+  To DISABLE round edges entirely: set --site-radius to 0px.
+  Current value: 6px — very subtle, keeps the professional feel.
+  ──────────────────────────────────────────────────────────────────────────
+*/
+:root {
+  --site-radius: 6px;
+}
+
+/* Apply to all images sitewide */
+img {
+  border-radius: var(--site-radius);
+}
+
+/* Apply to card/panel containers */
+.rounded-sm,
+.rounded,
+.rounded-lg,
+.rounded-3xl,
+.rounded-\[40px\] {
+  border-radius: var(--site-radius) !important;
+}
+
+/* Hero image is full-bleed — no rounding needed there */
+[data-parallax-wrap] img,
+[data-parallax-wrap] {
+  border-radius: 0 !important;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Consistent text rendering on all platforms / browsers */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-background text-on-background font-body antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  /* Ensure headline / label / display font classes render identically
+     on mobile and desktop — no OS-level size adjustment interference */
+  .font-headline, .font-label, .font-display, .font-body, .font-serif {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  /* Mobile nav link font — must match desktop nav exactly */
+  #mobile-menu .nav-link,
+  #mobile-menu a {
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+  :focus-visible {
+    outline: 2px solid theme("colors.secondary");
+    outline-offset: 2px;
+  }
+
+  /* Material Symbols icon font — loaded via <link> in each page's <head>.
+     Required class, not provided by Tailwind itself. */
+  .material-symbols-outlined {
+    font-family: "Material Symbols Outlined";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: "liga";
+    -webkit-font-smoothing: antialiased;
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  }
+}
+
+/* ==========================================================================
+   Shared animation / interaction primitives
+   (consolidated from the 5 separate Stitch exports)
+   ========================================================================== */
+
+@layer components {
+  /* Home "Selected Project" accordion — width/height distribution is
+     desktop-only (md+). On mobile the cards stack vertically with a
+     fixed height (see `.accordion-item` having `flex-none` in the
+     HTML) — flex-grow must NEVER apply there, because flex-basis:0%
+     overrides an explicit height in a column flex layout and silently
+     collapses every card to 0px tall. JS only toggles the `.active`
+     class; the actual grow/shrink values live here, scoped to md+, so
+     no class JS adds can ever re-introduce the mobile collapse bug. */
+  @media (min-width: 768px) {
+    .accordion-item.active {
+      flex: 5 5 0%;
+    }
+    .accordion-item:not(.active) {
+      flex: 1 1 0%;
+    }
+  }
+
+  /* Scroll reveal — element fades + rises into place once visible.
+     JS toggles `.is-visible`; respects reduced-motion below. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Project imagery: grayscale-to-color reveal on hover, used across
+     the projects grid and villa detail galleries */
+  .reveal-image {
+    filter: grayscale(100%) contrast(110%);
+    transition: filter 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .reveal-container:hover .reveal-image {
+    filter: grayscale(0%) contrast(100%);
+    transform: scale(1.03);
+  }
+
+  /* Magnetic button — JS adds the transform on mousemove; this just
+     sets up a smooth spring-back via transition */
+  .magnetic-btn {
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* Floating label form fields, shared by the contact + home forms */
+  .input-group {
+    position: relative;
+  }
+  .input-field {
+    @apply w-full bg-transparent border-0 border-b border-outline-variant py-3 px-0 text-on-surface font-body text-body-md transition-colors duration-300 focus:outline-none focus:ring-0 focus:border-primary;
+  }
+  .input-label {
+    @apply absolute left-0 top-3 font-label uppercase text-[11px] tracking-[0.1em] text-on-surface-variant/60 transition-all duration-300 pointer-events-none;
+  }
+  .input-field:focus ~ .input-label,
+  .input-field:not(:placeholder-shown) ~ .input-label {
+    @apply -top-4 text-[10px] text-primary;
+  }
+
+  /* Primary nav link underline-on-active state */
+  .nav-link {
+    @apply font-label uppercase tracking-[0.06em] text-on-surface-variant;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .nav-link.active {
+    @apply text-brand;
+  }
+
+  /* Closing CTA on every project category page — invites the visitor
+     back to the main Projects catalog. Fill sweeps in from the RIGHT
+     (mirrors the home CTA, which sweeps from the left) so its motion
+     direction matches the back-arrow icon and the "return" meaning.
+     Colors are supplied per-instance via --rtp-fill / --rtp-hover-text
+     custom properties, since different category pages sit on
+     different background shades. */
+  .return-to-project-btn {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    transition: border-color 0.4s ease, color 0.4s ease, transform 0.4s ease;
+  }
+  .return-to-project-btn:hover {
+    border-color: transparent !important;
+    color: var(--rtp-hover-text, #15171c) !important;
+    transform: translateY(-2px);
+  }
+  .return-to-project-btn__fill {
+    position: absolute;
+    inset: 0;
+    background: var(--rtp-fill, #f2f2f0);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+    z-index: 0;
+  }
+  .return-to-project-btn:hover .return-to-project-btn__fill {
+    transform: scaleX(1);
+  }
+
+  /* Home "Let's discuss cooperation!" CTA — pill outline that fills
+     white from the left on hover (text/icon invert to dark), combined
+     with a spring-eased icon rotation (no magnetic cursor-follow —
+     removed per request, kept centered and larger instead). */
+  .cta-discuss-btn {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    transition: border-color 0.4s ease;
+  }
+  .cta-discuss-btn:hover {
+    border-color: transparent;
+  }
+  .cta-discuss-btn__fill {
+    position: absolute;
+    inset: 0;
+    background: #ffffff;
+    border-radius: inherit;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+    z-index: 0;
+  }
+  .cta-discuss-btn:hover .cta-discuss-btn__fill {
+    transform: scaleX(1);
+  }
+
+  /* ---- View-All Projects pill CTA (light bg variant) ---- */
+  .view-all-cta {
+    isolation: isolate;
+    transition: border-color 0.4s ease;
+  }
+  .view-all-cta:hover {
+    border-color: #171818;
+  }
+  .view-all-cta__fill {
+    position: absolute;
+    inset: 0;
+    background: #171818;
+    border-radius: inherit;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.52s cubic-bezier(0.65, 0, 0.35, 1);
+    z-index: 0;
+  }
+  .view-all-cta:hover .view-all-cta__fill {
+    transform: scaleX(1);
+  }
+
+
+  /* ==========================================================================
+     Interactive Workflow Timeline — v2
+     - Line passes through circle center (positioned via JS after measure)
+     - Circles 60% larger (w-14 → ~w-[3.5rem] + scale on active = ~w-20)
+     - Labels use site headline font, turn brand-blue on active/hover
+     - Content drops directly below the hovered node (inline-panel)
+     ========================================================================== */
+
+  /* --- Inline content panel below each node --- */
+  .workflow-inline-panel {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    pointer-events: none;
+  }
+  .workflow-inline-panel.is-active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* --- Node active/inactive states --- */
+  .workflow-node .workflow-circle {
+    transform-origin: center;
+    transition: border-color 0.35s ease, background 0.35s ease,
+      transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.5s ease;
+  }
+  .workflow-node.is-active .workflow-circle {
+    border-color: #171818;
+    background: #171818;
+    transform: scale(1.12);
+    /* Four-layer glow: tight rim → inner bloom → mid bloom → wide ambient */
+    box-shadow:
+      0 0 0 6px rgba(23,24,24,0.07),
+      0 0 22px 6px rgba(23,24,24,0.22),
+      0 0 55px 14px rgba(23,24,24,0.10),
+      0 0 90px 28px rgba(23,24,24,0.05);
+  }
+  .workflow-node.is-active .workflow-num { color: #ffffff; }
+
+  /* Label: brand blue on active AND on hover */
+  .workflow-label {
+    transition: color 0.3s ease, letter-spacing 0.3s ease;
+  }
+  .workflow-node.is-active .workflow-label {
+    color: #6e86d6;
+    letter-spacing: 0.26em;
+  }
+  .workflow-node:hover .workflow-label,
+  .workflow-node:focus-visible .workflow-label {
+    color: #6e86d6;
+  }
+  .workflow-node.is-inactive .workflow-circle { opacity: 0.3; }
+  .workflow-node.is-inactive .workflow-label  { opacity: 0.35; }
+
+  /* --- Glow halo: large radial bloom + dual pulsing rings --- */
+  .workflow-node .workflow-glow {
+    pointer-events: none;
+    border-radius: 50%;
+    /* Extend well beyond the circle so the background halo is visible */
+    inset: -28px !important;
+    transition: opacity 0.45s ease, background 0.45s ease;
+  }
+  /* Active: soft radial glow background that fills the halo area */
+  .workflow-node.is-active .workflow-glow {
+    background: radial-gradient(circle at center, rgba(23,24,24,0.14) 0%, rgba(23,24,24,0.07) 38%, rgba(23,24,24,0.02) 60%, transparent 72%);
+  }
+  /* Ring 1 — inner tight pulse (positioned relative to the extended glow div) */
+  .workflow-node.is-active .workflow-glow::before {
+    content: "";
+    position: absolute;
+    inset: 18px; /* 18px from glow edge = ~-10px from circle edge */
+    border-radius: 50%;
+    border: 1.5px solid rgba(23,24,24,0.30);
+    animation: wf-ring-pulse 2.4s cubic-bezier(0.4,0,0.6,1) infinite;
+  }
+  /* Ring 2 — wide outer pulse, delayed */
+  .workflow-node.is-active .workflow-glow::after {
+    content: "";
+    position: absolute;
+    inset: 6px; /* 6px from glow edge = ~-22px from circle edge — starts bigger */
+    border-radius: 50%;
+    border: 1px solid rgba(23,24,24,0.14);
+    animation: wf-ring-pulse 2.4s cubic-bezier(0.4,0,0.6,1) 0.85s infinite;
+  }
+  @keyframes wf-ring-pulse {
+    0%   { transform: scale(1);    opacity: 1; }
+    100% { transform: scale(2.4);  opacity: 0; }
+  }
+
+  /* Fixed description — always visible below circle */
+  .workflow-fixed-desc {
+    min-height: 2.8em; /* keep consistent height across nodes */
+  }
+
+  /* Center the icon list horizontally under each circle */
+  .workflow-inline-panel ul {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Workflow icon bullet item hover */
+  .workflow-item {
+    transition: transform 0.2s ease;
+  }
+  .workflow-item:hover {
+    transform: translateX(3px);
+  }
+  .workflow-item-icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Hover glow (non-active) — soft illuminate on mouseenter */
+  .workflow-node:not(.is-inactive):not(.is-active) .workflow-circle:hover,
+  .workflow-node:focus-visible:not(.is-active) .workflow-circle {
+    box-shadow:
+      0 0 0 4px rgba(110,134,214,0.1),
+      0 0 16px 2px rgba(110,134,214,0.12);
+    border-color: rgba(110,134,214,0.5);
+  }
+
+  /* ---- Mobile node states (unchanged) ---- */
+  .workflow-mobile-stage .workflow-mobile-node {
+    transition: border-color 0.4s ease, background 0.4s ease,
+      transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease;
+  }
+  .workflow-mobile-stage.is-active .workflow-mobile-node {
+    border-color: #171818;
+    background: #171818;
+    transform: scale(1.12);
+    box-shadow: 0 0 0 3px rgba(23,24,24,0.08), 0 0 14px rgba(23,24,24,0.12);
+  }
+  .workflow-mobile-stage.is-active .workflow-mobile-num { color: #ffffff; }
+  .workflow-mobile-stage.is-active .workflow-mobile-label {
+    color: #6e86d6 !important;
+    font-weight: 700;
+  }
+  .workflow-mobile-stage.is-active .workflow-mobile-glow {
+    opacity: 1;
+    background: radial-gradient(circle, rgba(23,24,24,0.1) 0%, transparent 70%);
+    animation: wf-pulse 2.4s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .workflow-inline-panel,
+    .workflow-node .workflow-circle,
+    .workflow-progress,
+    .workflow-mobile-progress,
+    .workflow-mobile-content {
+      transition: none !important;
+      animation: none !important;
+    }
+    .workflow-inline-panel { opacity: 1 !important; transform: none !important; }
+  }
+
+  .nav-cta {
+    @apply transition-all duration-300 ease-out hover:bg-brand hover:-translate-y-0.5 hover:shadow-lg;
+  }
+
+  /* About Studio stats + Workflow step cards: text shifts to brand color on hover.
+     Doubled selector (.hover-brand-text.hover-brand-text) bumps specificity so this
+     reliably wins over plain utility classes like .text-primary / .text-on-surface-variant
+     regardless of their position in the compiled stylesheet. */
+  .hover-brand-text,
+  .hover-brand-text * {
+    @apply transition-colors duration-300 ease-out;
+  }
+  .hover-brand-text.hover-brand-text:hover,
+  .hover-brand-text.hover-brand-text:hover * {
+    color: #6e86d6 !important;
+  }
+
+  /* Footer / contact-page social icons — neutral, colorless by default
+     (outline style, no tint), filling in with the brand color on hover. */
+  .footer-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background-color: transparent;
+    border: 1px solid #c4c7c7;
+    color: #444748;
+    transition: background-color 300ms ease-out, color 300ms ease-out, border-color 300ms ease-out, transform 300ms ease-out;
+  }
+  .footer-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+  .footer-icon:hover {
+    background-color: #6e86d6;
+    border-color: #6e86d6;
+    color: #ffffff;
+    transform: translateY(-3px);
+  }
+
+  /* Masonry-style photo gallery (CSS columns) — used across all project
+     detail pages. Preserves each image's native aspect ratio (no crop) and
+     never leaves a trailing empty cell the way a row-based CSS grid can
+     when the image count isn't a multiple of the column count. Base
+     ".masonry" alone = single column (mobile default); add an explicit
+     ".masonry-N" / ".masonry-md-N" / ".masonry-lg-N" to set column counts
+     at each breakpoint. */
+  .masonry {
+    column-gap: 1rem;
+  }
+  .masonry > * {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+  .masonry-1 { column-count: 1; }
+  .masonry-2 { column-count: 2; }
+  .masonry-3 { column-count: 3; }
+  .masonry-4 { column-count: 4; }
+  @media (min-width: 768px) {
+    .masonry-md-1 { column-count: 1; }
+    .masonry-md-2 { column-count: 2; }
+    .masonry-md-3 { column-count: 3; }
+    .masonry-md-4 { column-count: 4; }
+  }
+  @media (min-width: 1024px) {
+    .masonry-lg-1 { column-count: 1; }
+    .masonry-lg-2 { column-count: 2; }
+    .masonry-lg-3 { column-count: 3; }
+    .masonry-lg-4 { column-count: 4; }
+  }
+}
+
+/* Respect users who've asked for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-image,
+  .magnetic-btn,
+  .input-field,
+  .input-label {
+    transition: none !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <script>document.documentElement.classList.add("pt-init");</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | Armila Design Studio</title>
+  <meta name="description" content="Led by Milad and Armita, Armila Design Studio delivers a decade of bespoke architectural, interior, and urban planning solutions." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+
+  <style>
+    /* Team photo: grayscale by default, colour on hover */
+    .team-photo-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+    .team-photo-bw,
+    .team-photo-color {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: opacity 600ms ease-in-out;
+    }
+    /* BW on top by default, colour hidden underneath */
+    .team-photo-bw   { opacity: 1; z-index: 2; }
+    .team-photo-color{ opacity: 0; z-index: 1; }
+    /* On hover: fade BW out → colour becomes visible.
+       Scoped to real hover-capable pointers — touch devices can't
+       hover, so they get the colour photo shown by default instead
+       (see the "not all and (hover: hover)" block below). */
+    @media (hover: hover) and (pointer: fine) {
+      .team-photo-wrap:hover .team-photo-bw  { opacity: 0; }
+      .team-photo-wrap:hover .team-photo-color{ opacity: 1; }
+      .team-photo-wrap:hover .team-photo-bw,
+      .team-photo-wrap:hover .team-photo-color {
+        transform: scale(1.03);
+      }
+    }
+    @media not all and (hover: hover) {
+      .team-photo-bw { opacity: 0; }
+      .team-photo-color { opacity: 1; }
+    }
+    /* Slight scale on hover for depth */
+    .team-photo-bw,
+    .team-photo-color {
+      transform: scale(1);
+      transition: opacity 600ms ease-in-out, transform 700ms ease-out;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface antialiased overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+
+  <!-- @include navbar -->
+
+  <main class="pt-[76px] pb-container-padding-desktop px-container-padding-mobile md:px-container-padding-desktop max-w-site mx-auto min-h-screen flex flex-col justify-center">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-bento-gap items-stretch flex-grow">
+
+      <!-- Left: Typography -->
+      <div class="md:col-span-5 lg:col-span-6 flex flex-col justify-center pr-0 lg:pr-12 py-12 reveal">
+        <span class="font-label text-label-caps text-secondary uppercase mb-8 block tracking-[0.1em]">Studio Profile</span>
+        <h1 class="font-headline text-headline-lg-mobile md:text-display-lg text-primary mb-8 tracking-tighter leading-[1.1]">
+          A Decade of <br /><span class="text-secondary">Spatial Precision.</span>
+        </h1>
+
+        <p class="font-body text-body-lg text-primary mb-12 leading-relaxed text-justify">
+          Led by Milad and Armita, our design and build studio leverages over 10 years of professional expertise to deliver bespoke architectural, interior, and urban planning solutions. We bridge the gap between creative vision and technical precision, collaborating closely with clients to transform concepts into high-standard, functional realities. Our holistic approach prioritizes custom-designed, one-of-a-kind elements that reflect each client's unique individuality while adhering to international design excellence.
+        </p>
+
+        <div class="grid grid-cols-2 gap-bento-gap mt-auto">
+          <div class="bg-surface-container-low hover:bg-surface-container-high p-6 rounded border border-surface-variant hover:-translate-y-1 transition-all duration-300 hover-brand-text">
+            <span class="block font-headline text-headline-md text-primary mb-1"><span data-counter="10">0</span>+</span>
+            <span class="font-label text-label-caps text-secondary uppercase">Years Experience</span>
+          </div>
+          <div class="bg-surface-container-low hover:bg-surface-container-high p-6 rounded border border-surface-variant hover:-translate-y-1 transition-all duration-300 hover-brand-text">
+            <span class="block font-headline text-headline-md text-primary mb-1"><span data-counter="250">0</span>+</span>
+            <span class="font-label text-label-caps text-secondary uppercase">Projects Delivered</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Team photo with BW → Colour hover -->
+      <div class="md:col-span-7 lg:col-span-6 relative rounded-lg overflow-hidden min-h-[520px] md:min-h-[640px] reveal" data-reveal-delay="100">
+        <div class="team-photo-wrap" style="position:absolute;inset:0;width:100%;height:100%;">
+          <!-- Colour version underneath -->
+          <img loading="lazy" alt="Milad and Armita, founders of Armila Design Studio — colour" class="team-photo-color" src="images/team/founders-color.webp">
+          <!-- BW version on top (fades out on hover) -->
+          <img loading="lazy" decoding="async" alt="Milad and Armita, founders of Armila Design Studio" class="team-photo-bw" src="images/team/founders-bw.webp">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-surface/20 to-transparent pointer-events-none z-10"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- @include footer -->
+
+  <script src="js/vendor/lenis.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
