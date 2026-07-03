@@ -81,6 +81,18 @@
   #page-loader { display: none !important; }
 }
 
+/* Safety fallback: if JS fails to load for any reason, loader auto-hides
+   after 3s via CSS animation so the page is never permanently blocked.
+   JS-driven .loader-out takes precedence when JS works normally. */
+@keyframes loader-auto-hide {
+  0%   { opacity: 1; pointer-events: all;  }
+  85%  { opacity: 1; pointer-events: all;  }
+  100% { opacity: 0; pointer-events: none; }
+}
+#page-loader:not(.loader-out) {
+  animation: loader-auto-hide 3s ease forwards;
+}
+
 /* ==========================================================================
    Mobile navigation drawer
    --------------------------------------------------------------------------

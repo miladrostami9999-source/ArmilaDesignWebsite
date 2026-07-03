@@ -259,6 +259,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const parallaxImg = document.querySelector("[data-parallax]");
   if (parallaxImg && !prefersReducedMotion) {
     const wrap = document.querySelector("[data-parallax-wrap]");
+    if (!wrap) {
+      // data-parallax-wrap not found on this page — skip parallax silently
+    } else {
     let ticking = false;
     const IMG_SCALE = 1.3; // must match the element's inline transform: scale(...)
     const SPEED_MULTIPLIER = 1.2; // 20% faster drift, per request
@@ -287,6 +290,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     window.addEventListener("resize", updateParallax);
     updateParallax();
+    } // end else (wrap exists)
   }
 
   /* ---------------------------------------------------------------------
