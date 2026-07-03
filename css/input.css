@@ -83,14 +83,21 @@
 
 /* Safety fallback: if JS fails to load for any reason, loader auto-hides
    after 3s via CSS animation so the page is never permanently blocked.
-   JS-driven .loader-out takes precedence when JS works normally. */
+   IMPORTANT: the animation only runs while JS hasn't added .loader-out.
+   Once JS takes over (adds/removes .loader-out), we cancel the animation
+   entirely (animation: none) so the opacity transition isn't blocked by
+   the animation's fill-mode lock — otherwise clicking links couldn't
+   fade the loader back in for page navigation. */
 @keyframes loader-auto-hide {
   0%   { opacity: 1; pointer-events: all;  }
   85%  { opacity: 1; pointer-events: all;  }
   100% { opacity: 0; pointer-events: none; }
 }
-#page-loader:not(.loader-out) {
+html:not(.js-loader) #page-loader:not(.loader-out) {
   animation: loader-auto-hide 3s ease forwards;
+}
+html.js-loader #page-loader {
+  animation: none;
 }
 
 /* ==========================================================================

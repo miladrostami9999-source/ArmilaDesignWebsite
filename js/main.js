@@ -356,6 +356,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const loader = document.getElementById("page-loader");
 
   if (loader) {
+    /* Signal to CSS that JS is running — disables the no-JS fallback
+       animation so opacity transitions work for navigation. */
+    document.documentElement.classList.add("js-loader");
+
     const ENTER_DELAY_MS = 320; // how long the glow animation plays before hiding
 
     /* Initial load: let glow animate briefly, then fade out loader */
@@ -380,15 +384,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
         e.preventDefault();
 
-        /* Fade loader IN — then navigate only after it's fully opaque.
-           Using transitionend (not a fixed setTimeout) so the navigate
-           always waits for the real CSS transition to complete. */
+        /* Fade loader IN, then navigate. transitionend is the preferred
+           trigger, but a backup timeout guarantees navigation even if the
+           transition event never fires (e.g. interrupted transition,
+           element mid-animation, or browser edge cases). */
+        let navigated = false;
+        const go = () => {
+          if (navigated) return;
+          navigated = true;
+          window.location.href = link.href;
+        };
+
         loader.classList.remove("loader-out");
-        loader.addEventListener(
-          "transitionend",
-          () => { window.location.href = link.href; },
-          { once: true }
-        );
+        loader.addEventListener("transitionend", go, { once: true });
+        window.setTimeout(go, 450); /* backup: slightly longer than the 320ms CSS transition */
       });
 
       /* Back/forward cache: loader may still be visible — hide it */
