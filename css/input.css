@@ -555,7 +555,29 @@ img {
     margin-right: auto;
   }
 
-  /* Workflow icon bullet item hover */
+  /* ── Hero section reveal — CSS-only, no JS dependency ─────────────────
+     These elements are always in the viewport on page load. Using pure CSS
+     animation (not the JS IntersectionObserver reveal system) guarantees
+     they appear even if JS timing varies. Delays are staggered to create
+     the same cascading entrance effect as before.
+  ────────────────────────────────────────────────────────────────────── */
+  @keyframes hero-fade-up {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0);    }
+  }
+
+  .hero-reveal   { animation: hero-fade-up 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.72s both; }
+  .hero-reveal-2 { animation: hero-fade-up 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.82s both; }
+  .hero-reveal-3 { animation: hero-fade-up 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.94s both; }
+  .hero-reveal-4 { animation: hero-fade-up 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.06s both; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-reveal, .hero-reveal-2, .hero-reveal-3, .hero-reveal-4 {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
   .workflow-item {
     transition: transform 0.2s ease;
   }
