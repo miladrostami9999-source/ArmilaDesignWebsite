@@ -3,6 +3,22 @@
 @tailwind utilities;
 
 /* ==========================================================================
+   Global horizontal overflow guard — CRITICAL for mobile.
+   Some element (e.g. the parallax hero image with transform:scale(1.3))
+   extends past the device width on phones. Mobile Chrome responds by
+   rendering the page WIDER than the screen and zooming out to fit.
+   The fixed #page-loader only spans the original layout viewport, so its
+   centered logo appeared shifted LEFT on mobile (while desktop was fine).
+   Clipping horizontal overflow at the root keeps the layout viewport
+   exactly equal to the device width, so fixed overlays truly cover the
+   whole visible screen and centering is correct everywhere.
+   ========================================================================== */
+html, body {
+  overflow-x: clip;
+  max-width: 100%;
+}
+
+/* ==========================================================================
    Page Loader Overlay — White Opaque + Logo Glow Pulse
    --------------------------------------------------------------------------
    Fully opaque WHITE background, matching the site's dominant light theme.
