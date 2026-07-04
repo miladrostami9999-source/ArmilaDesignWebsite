@@ -14,23 +14,13 @@
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 100vw;
+  min-height: 100vh;
+  min-height: 100dvh;
   z-index: 9999;
-  /* 100% opaque white — matches the site's light theme */
   background: #f9f9f9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  /* Dynamic viewport height fixes the mobile "off-center" bug: on phones,
-     100% / -webkit-fill-available get thrown off whenever the browser's
-     address bar shows/hides, since the fixed box no longer matches the
-     visible area. 100dvh always tracks the ACTUAL visible viewport, so
-     the centered logo stays perfectly centered no matter what the
-     address bar is doing. Falls back gracefully on older browsers. */
-  height: 100vh;
-  height: 100dvh;
   opacity: 1;
   transition: opacity 0.32s ease;
   will-change: opacity;
@@ -41,13 +31,18 @@
   pointer-events: none;
 }
 
-/* Stack container — single image now (no invert layers needed) */
+/* Stack container — centered with absolute + transform trick.
+   This is the most reliable cross-browser mobile centering method:
+   ignores all flex/grid/safe-area quirks and places the element
+   at exactly the geometric center of the fixed overlay. */
 .page-loader-stack {
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 120px;
   height: 120px;
   flex-shrink: 0;
-  margin: auto;
 }
 
 .pll {
