@@ -189,58 +189,86 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* ---------------------------------------------------------------------
-     6. Contact / inquiry forms — real submission via Netlify Forms.
-        Works automatically once this static site is deployed on Netlify
-        (no API key needed — Netlify scans the built HTML for the
-        data-netlify="true" attribute at deploy time and wires it up).
+     6. Contact / inquiry forms — real submission via Web3Forms.
+        This site is static and deployed on Vercel (no backend), so we use
+        Web3Forms' public API to relay submissions straight to an inbox —
+        no server code needed. Get a free access key at web3forms.com and
+        paste it into the form's hidden `access_key` input in the HTML.
         Submits via fetch so the page never reloads; shows a clear
         success/error message in the form's [data-form-status] element.
   --------------------------------------------------------------------- */
   document.querySelectorAll("form[data-armila-form]").forEach((form) => {
+    // Floating label support for <select> — native CSS can't detect
+    // "has a value" on a select the way :not(:placeholder-shown) works
+    // on inputs, so we toggle a class manually.
+    form.querySelectorAll(".af-select").forEach((select) => {
+      const syncValueState = () => {
+        select.classList.toggle("has-value", select.value !== "");
+      };
+      syncValueState();
+      select.addEventListener("change", syncValueState);
+    });
+
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       const status = form.querySelector("[data-form-status]");
       const submitBtn = form.querySelector('button[type="submit"]');
-      const originalBtnHTML = submitBtn ? submitBtn.innerHTML : "";
+      const submitLabel = form.querySelector("[data-submit-label]");
+      const originalLabel = submitLabel ? submitLabel.textContent : "";
 
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.style.opacity = "0.6";
-        submitBtn.style.cursor = "not-allowed";
-      }
+      // Honeypot — if a bot filled this hidden field, silently drop it.
+      const honeypot = form.querySelector('input[name="botcheck"]');
+      if (honeypot && honeypot.checked) return;
+
+      if (submitBtn) submitBtn.disabled = true;
+      if (submitLabel) submitLabel.textContent = "Sending…";
       if (status) {
-        status.textContent = "Sending…";
+        status.removeAttribute("data-state");
+        status.textContent = "";
       }
 
-      const data = new URLSearchParams(new FormData(form)).toString();
+      const payload = Object.fromEntries(new FormData(form).entries());
 
-      fetch("/", {
+      fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: data,
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(payload),
       })
-        .then((response) => {
-          if (!response.ok) throw new Error("Network response was not ok");
+        .then((response) => response.json().then((json) => ({ ok: response.ok, json })))
+        .then(({ ok, json }) => {
+          if (!ok || !json.success) throw new Error(json.message || "Submission failed");
           if (status) {
-            status.textContent =
-              "Thank you — your message has been sent. We'll be in touch shortly.";
+            status.setAttribute("data-state", "ok");
+            status.textContent = "Thank you — your message has been sent. We'll be in touch shortly.";
           }
           form.reset();
+          form.querySelectorAll(".af-select").forEach((s) => s.classList.remove("has-value"));
         })
         .catch(() => {
           if (status) {
-            status.textContent =
-              "Something went wrong sending this form. Please email us directly at Armila.Design16@Gmail.com instead.";
+            status.setAttribute("data-state", "error");
+            status.textContent = "Something went wrong sending this form. Please email us directly at Armila.Design16@Gmail.com instead.";
           }
         })
         .finally(() => {
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.style.opacity = "";
-            submitBtn.style.cursor = "";
-            submitBtn.innerHTML = originalBtnHTML;
-          }
+          if (submitBtn) submitBtn.disabled = false;
+          if (submitLabel) submitLabel.textContent = originalLabel;
         });
+    });
+  });
+
+  /* ---------------------------------------------------------------------
+     6b. "More details (optional)" collapsible section on the contact form.
+  --------------------------------------------------------------------- */
+  document.querySelectorAll("[data-more-toggle]").forEach((toggle) => {
+    const panelId = toggle.getAttribute("aria-controls");
+    const panel = document.getElementById(panelId);
+    const label = toggle.querySelector("[data-more-label]");
+    if (!panel) return;
+    toggle.addEventListener("click", () => {
+      const isOpen = panel.classList.toggle("is-open");
+      toggle.setAttribute("aria-expanded", String(isOpen));
+      if (label) label.textContent = isOpen ? "Hide extra details" : "More details (optional)";
     });
   });
 

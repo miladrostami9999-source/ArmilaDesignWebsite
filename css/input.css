@@ -12,16 +12,25 @@
    ========================================================================== */
 #page-loader {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 9999;
   /* 100% opaque white — matches the site's light theme */
   background: #f9f9f9;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
-  min-height: -webkit-fill-available;
+  width: 100vw;
+  /* Dynamic viewport height fixes the mobile "off-center" bug: on phones,
+     100% / -webkit-fill-available get thrown off whenever the browser's
+     address bar shows/hides, since the fixed box no longer matches the
+     visible area. 100dvh always tracks the ACTUAL visible viewport, so
+     the centered logo stays perfectly centered no matter what the
+     address bar is doing. Falls back gracefully on older browsers. */
+  height: 100vh;
+  height: 100dvh;
   opacity: 1;
   transition: opacity 0.32s ease;
   will-change: opacity;
@@ -359,6 +368,142 @@ img {
   .input-field:not(:placeholder-shown) ~ .input-label {
     @apply -top-4 text-[10px] text-primary;
   }
+
+  /* ==========================================================================
+     Compact "Send us a Message" form — v2
+     Soft glow focus states, animated center-out underline, gentle hover
+     lift, smooth expand/collapse for optional fields.
+     ========================================================================== */
+  .af-card {
+    background: #fff;
+    border: 1px solid #ececec;
+    border-radius: var(--site-radius);
+    padding: 2rem;
+    transition: box-shadow 0.4s ease, border-color 0.4s ease;
+  }
+  @media (min-width: 768px) {
+    .af-card { padding: 2.75rem; }
+  }
+  .af-card:hover {
+    box-shadow: 0 24px 60px -24px rgba(23, 24, 24, 0.16);
+    border-color: #e2e2e2;
+  }
+
+  .af-field { position: relative; }
+
+  .af-input {
+    @apply w-full bg-transparent border-0 border-b border-outline-variant py-3 px-0 font-body text-body-md text-on-surface transition-colors duration-300;
+  }
+  .af-input:focus { outline: none; }
+
+  .af-label {
+    @apply absolute left-0 top-3 font-label uppercase text-[11px] tracking-[0.1em] text-on-surface-variant/60 pointer-events-none;
+    transition: transform 0.3s ease, color 0.3s ease, font-size 0.3s ease;
+  }
+  .af-input:focus ~ .af-label,
+  .af-input:not(:placeholder-shown) ~ .af-label,
+  .af-select:focus ~ .af-label,
+  .af-select.has-value ~ .af-label {
+    transform: translateY(-1.15rem);
+    font-size: 10px;
+    color: #6e86d6;
+  }
+
+  /* Center-out glow underline — replaces the plain focus border */
+  .af-underline {
+    position: absolute;
+    left: 50%;
+    bottom: -1px;
+    width: 0;
+    height: 2px;
+    background: #6e86d6;
+    box-shadow: 0 0 8px rgba(110, 134, 214, 0.6);
+    transform: translateX(-50%);
+    transition: width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
+  }
+  .af-input:focus ~ .af-underline,
+  .af-select:focus ~ .af-underline {
+    width: 100%;
+  }
+
+  .af-select {
+    @apply w-full bg-transparent border-0 border-b border-outline-variant py-3 pr-6 font-body text-body-md text-on-surface appearance-none cursor-pointer transition-colors duration-300;
+  }
+  .af-select:focus { outline: none; }
+  .af-select-icon {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease, color 0.3s ease;
+    pointer-events: none;
+    color: #8a8d8d;
+  }
+  .af-field:hover .af-select-icon { color: #6e86d6; }
+  .af-select:focus ~ .af-select-icon { transform: translateY(-50%) rotate(180deg); color: #6e86d6; }
+
+  /* "More details" gentle expand/collapse */
+  .af-collapse {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 0.45s ease, opacity 0.35s ease;
+  }
+  .af-collapse > div { overflow: hidden; }
+  .af-collapse.is-open {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+  .af-toggle {
+    @apply font-label text-[11px] uppercase tracking-[0.12em] text-brand;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: opacity 0.25s ease;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .af-toggle:hover { opacity: 0.7; }
+  .af-toggle .material-symbols-outlined {
+    font-size: 16px;
+    transition: transform 0.35s ease;
+  }
+  .af-toggle[aria-expanded="true"] .material-symbols-outlined { transform: rotate(45deg); }
+
+  .af-submit {
+    background: #171818;
+    color: #fff;
+    font-family: 'Spline Sans', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 1rem 2.25rem;
+    border: none;
+    border-radius: var(--site-radius);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: background 300ms ease-out, transform 200ms ease-out, box-shadow 300ms ease-out;
+  }
+  .af-submit:hover {
+    background: #6e86d6;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px -8px rgba(110, 134, 214, 0.55);
+  }
+  .af-submit:disabled { cursor: not-allowed; opacity: 0.6; transform: none; }
+
+  .af-status {
+    @apply font-body text-sm;
+    min-height: 1.25rem;
+    transition: color 0.3s ease;
+  }
+  .af-status[data-state="ok"] { color: #2f8f5b; }
+  .af-status[data-state="error"] { color: #c14747; }
 
   /* Primary nav link underline-on-active state */
   .nav-link {

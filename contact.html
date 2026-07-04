@@ -16,63 +16,6 @@
   <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png" />
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
 
-  <style>
-    /* Styled select to match input-field look */
-    .select-field {
-      width: 100%;
-      background: transparent;
-      border: 0;
-      border-bottom: 1px solid #c4c7c7;
-      padding: .75rem 2rem .75rem 0;
-      font-family: 'Public Sans', sans-serif;
-      font-size: 16px;
-      color: #1a1c1c;
-      appearance: none;
-      cursor: pointer;
-      transition: border-color .3s;
-    }
-    .select-field:focus {
-      outline: none;
-      border-color: #6e86d6;
-    }
-    /* Floating label always stays up for select */
-    .select-label {
-      position: absolute;
-      left: 0;
-      top: -1rem;
-      font-family: 'Spline Sans', sans-serif;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      color: #171818;
-    }
-    /* Input focus → brand underline */
-    .input-field:focus {
-      border-color: #6e86d6;
-      outline: none;
-    }
-    /* Submit button brand style */
-    .btn-brand {
-      background: #171818;
-      color: #fff;
-      font-family: 'Spline Sans', sans-serif;
-      font-size: 12px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      font-weight: 700;
-      padding: 1rem 2.5rem;
-      border: none;
-      cursor: pointer;
-      transition: background 300ms ease-out, transform 200ms ease-out;
-      display: inline-flex;
-      align-items: center;
-      gap: .75rem;
-    }
-    .btn-brand:hover {
-      background: #6e86d6;
-      transform: translateY(-2px);
-    }
-  </style>
 </head>
 <body class="bg-surface text-on-surface antialiased min-h-screen flex flex-col selection:bg-primary selection:text-on-primary">
 
@@ -228,88 +171,115 @@
         </div>
       </div>
 
-      <!-- ─── Right Form Panel: "Send us a Message" ─── -->
-      <div class="md:col-span-8 bg-surface-container-lowest border border-surface-container-high p-8 md:p-12 rounded reveal" data-reveal-delay="200">
-        <h3 class="font-headline text-headline-sm text-primary mb-8">Send us a Message</h3>
-        <form class="flex flex-col h-full space-y-10" data-armila-form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
-          <input type="hidden" name="form-name" value="contact" />
-          <p class="hidden">
-            <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-          </p>
+      <!-- ─── Right Form Panel: "Send us a Message" ───
+           Compact by default (Name, Email, Project Type, Message).
+           Phone / Company / Budget are tucked behind a "+ More details"
+           toggle so the form feels short, but nothing is lost for people
+           who want to share more. Submits to Web3Forms (no backend
+           needed — works on Vercel) and arrives as an email at
+           Armila.Design16@Gmail.com with every field the visitor filled. -->
+      <div class="md:col-span-8 reveal" data-reveal-delay="200">
+        <div class="af-card">
+          <h3 class="font-headline text-headline-sm text-primary mb-1">Send us a Message</h3>
+          <p class="font-body text-sm text-on-surface-variant/70 mb-8">Takes under a minute — we reply within 24h.</p>
 
-          <!-- Row 1: Name + Email -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div class="input-group">
-              <input class="input-field peer" id="name" name="name" placeholder=" " type="text" required />
-              <label class="input-label" for="name">Full Name</label>
+          <form class="flex flex-col space-y-8" data-armila-form id="contact-form">
+            <!-- Web3Forms config -->
+            <input type="hidden" name="access_key" value="c6e13c9a-b01e-4e8f-b453-48cdae2f2d32" />
+            <input type="hidden" name="subject" value="New inquiry — Armila Design website" />
+            <input type="hidden" name="from_name" value="Armila Design Studio Website" />
+            <!-- honeypot spam trap — must stay empty -->
+            <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+
+            <!-- Row 1: Name + Email -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div class="af-field">
+                <input class="af-input peer" id="name" name="name" placeholder=" " type="text" required />
+                <label class="af-label" for="name">Full Name</label>
+                <span class="af-underline"></span>
+              </div>
+              <div class="af-field">
+                <input class="af-input peer" id="email" name="email" placeholder=" " type="email" required />
+                <label class="af-label" for="email">Email Address</label>
+                <span class="af-underline"></span>
+              </div>
             </div>
-            <div class="input-group">
-              <input class="input-field peer" id="email" name="email" placeholder=" " type="email" required />
-              <label class="input-label" for="email">Email Address</label>
+
+            <!-- Row 2: Field of Activity -->
+            <div class="af-field">
+              <select class="af-select" id="project-type" name="project_type" required>
+                <option value="" disabled selected hidden></option>
+                <option value="Villa Design">Villa Design</option>
+                <option value="Interior Design">Interior Design</option>
+                <option value="Commercial Design">Commercial Design</option>
+                <option value="Residential Design">Residential Design</option>
+                <option value="Office & Retail Design">Office &amp; Retail Design</option>
+                <option value="Landscape Design">Landscape Design</option>
+                <option value="3D Visualization">3D Visualization</option>
+                <option value="Spatial Consultation">Spatial Consultation</option>
+                <option value="Other">Other</option>
+              </select>
+              <label class="af-label" for="project-type">Field of Activity</label>
+              <span class="material-symbols-outlined af-select-icon" aria-hidden="true">expand_more</span>
+              <span class="af-underline"></span>
             </div>
-          </div>
 
-          <!-- Row 2: Phone + Company -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div class="input-group">
-              <input class="input-field peer" id="phone" name="phone" placeholder=" " type="tel" />
-              <label class="input-label" for="phone">Phone Number (Optional)</label>
+            <!-- Row 3: Project Details -->
+            <div class="af-field">
+              <textarea class="af-input peer resize-none min-h-[110px]" id="message" name="message" placeholder=" " required></textarea>
+              <label class="af-label" for="message">Project Details</label>
+              <span class="af-underline"></span>
             </div>
-            <div class="input-group">
-              <input class="input-field peer" id="company" name="company" placeholder=" " type="text" />
-              <label class="input-label" for="company">Company / Organization (Optional)</label>
+
+            <!-- More details toggle -->
+            <div>
+              <button type="button" class="af-toggle" data-more-toggle aria-expanded="false" aria-controls="more-details">
+                <span class="material-symbols-outlined" aria-hidden="true">add</span>
+                <span data-more-label>More details (optional)</span>
+              </button>
+              <div class="af-collapse" id="more-details" data-more-panel>
+                <div>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8">
+                    <div class="af-field">
+                      <input class="af-input peer" id="phone" name="phone" placeholder=" " type="tel" />
+                      <label class="af-label" for="phone">Phone Number</label>
+                      <span class="af-underline"></span>
+                    </div>
+                    <div class="af-field">
+                      <input class="af-input peer" id="company" name="company" placeholder=" " type="text" />
+                      <label class="af-label" for="company">Company / Organization</label>
+                      <span class="af-underline"></span>
+                    </div>
+                  </div>
+                  <div class="af-field mt-8">
+                    <select class="af-select" id="budget" name="budget">
+                      <option value="" disabled selected hidden></option>
+                      <option value="Under $10,000">Under $10,000</option>
+                      <option value="$10,000 – $30,000">$10,000 – $30,000</option>
+                      <option value="$30,000 – $100,000">$30,000 – $100,000</option>
+                      <option value="$100,000 – $300,000">$100,000 – $300,000</option>
+                      <option value="$300,000+">$300,000+</option>
+                      <option value="To be discussed">To be discussed</option>
+                    </select>
+                    <label class="af-label" for="budget">Budget Range</label>
+                    <span class="material-symbols-outlined af-select-icon" aria-hidden="true">expand_more</span>
+                    <span class="af-underline"></span>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <!-- Row 3: Project Type / Field of Activity -->
-          <div class="input-group relative">
-            <span class="select-label">Field of Activity</span>
-            <select class="select-field" id="project-type" name="project_type" required>
-              <option value="" disabled selected hidden></option>
-              <option value="villa">Villa Design</option>
-              <option value="interior">Interior Design</option>
-              <option value="commercial">Commercial Design</option>
-              <option value="residential">Residential Design</option>
-              <option value="office-retail">Office &amp; Retail Design</option>
-              <option value="landscape">Landscape Design</option>
-              <option value="3d-visualization">3D Visualization</option>
-              <option value="consultation">Spatial Consultation</option>
-              <option value="other">Other</option>
-            </select>
-            <span class="material-symbols-outlined absolute right-0 top-1/2 -translate-y-1/2 text-secondary pointer-events-none" aria-hidden="true">expand_more</span>
-          </div>
-
-          <!-- Row 4: Budget Range -->
-          <div class="input-group relative">
-            <span class="select-label">Budget Range (Optional)</span>
-            <select class="select-field" id="budget" name="budget">
-              <option value="" disabled selected hidden></option>
-              <option value="under-10k">Under $10,000</option>
-              <option value="10k-30k">$10,000 – $30,000</option>
-              <option value="30k-100k">$30,000 – $100,000</option>
-              <option value="100k-300k">$100,000 – $300,000</option>
-              <option value="300k+">$300,000+</option>
-              <option value="tbd">To be discussed</option>
-            </select>
-            <span class="material-symbols-outlined absolute right-0 top-1/2 -translate-y-1/2 text-secondary pointer-events-none" aria-hidden="true">expand_more</span>
-          </div>
-
-          <!-- Row 5: Project Details -->
-          <div class="input-group">
-            <textarea class="input-field resize-none min-h-[140px] peer" id="message" name="message" placeholder=" " required></textarea>
-            <label class="input-label" for="message">Project Details</label>
-          </div>
-
-          <!-- Status + Submit -->
-          <p class="text-sm text-on-surface-variant" data-form-status role="status"></p>
-          <div class="flex justify-end pt-4">
-            <button class="btn-brand" type="submit">
-              <span>Send Request</span>
-              <span class="material-symbols-outlined text-xl" aria-hidden="true">arrow_forward</span>
-            </button>
-          </div>
-
-        </form>
+            <!-- Status + Submit -->
+            <p class="af-status" data-form-status role="status"></p>
+            <div class="flex justify-end pt-2">
+              <button class="af-submit" type="submit">
+                <span data-submit-label>Send Request</span>
+                <span class="material-symbols-outlined text-xl" aria-hidden="true">arrow_forward</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
       </div>
 
     </div>
