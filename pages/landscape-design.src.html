@@ -11,13 +11,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@600;700&family=Public+Sans:wght@400;700&family=Cormorant+Garamond:wght@300;400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/style.css?v=4" />
+  <link rel="stylesheet" href="css/style.css?v=5" />
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png" />
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
 
   <style>
-    .gallery-img { width: 100%; height: auto; display: block; object-fit: contain; }
+    /* frames keep the native aspect ratio; hover behaviour lives in css/input.css */
     .project-villauk { background-color: #f2f4ee; }
     .project-soran    { background-color: #eef3ea; }
     .project-bastora  { background-color: #eaf0e6; }
@@ -31,10 +31,10 @@
   <main class="pt-[76px]">
 
     <section class="px-container-padding-mobile md:px-container-padding-desktop max-w-site mx-auto mb-24 md:mb-32 reveal">
-      <h1 class="font-serif text-[56px] md:text-[140px] leading-none tracking-tight text-primary-container mb-10 text-center md:text-left">Landscape Design</h1>
+      <h1 class="font-display text-[56px] md:text-[140px] leading-none tracking-tight text-primary-container mb-10 text-center md:text-left">Landscape Design</h1>
       <div class="flex justify-center md:justify-end">
         <div class="max-w-xl border-l border-outline pl-8">
-          <p class="font-serif text-on-surface-variant leading-relaxed italic text-lg md:text-xl">"A landscape is architecture that grows."</p>
+          <p class="font-display text-on-surface-variant leading-relaxed italic text-lg md:text-xl">"A landscape is architecture that grows."</p>
           <p class="font-body text-on-surface-variant mt-4">From a private UK garden to two civic landscapes in Iraq — outdoor spaces shaped for how people gather and move.</p>
         </div>
       </div>
@@ -45,26 +45,26 @@
       <div class="px-container-padding-mobile md:px-container-padding-desktop max-w-site mx-auto">
         <div class="reveal mb-16">
           <span class="font-label text-label-caps text-secondary block mb-3 tracking-[0.2em]">PROJECT 01 — UNITED KINGDOM</span>
-          <h2 class="font-serif text-[40px] md:text-[88px] leading-[0.95] tracking-tight text-primary mb-8">Villa Landscape</h2>
+          <h2 class="font-display text-[40px] md:text-[88px] leading-[0.95] tracking-tight text-primary mb-8">Villa Landscape</h2>
           <p class="font-body text-on-surface-variant text-lg max-w-2xl leading-relaxed">
             A private garden designed as an extension of the home — structured planting, quiet seating areas, and a lawn that frames the architecture rather than competing with it.
           </p>
         </div>
 
         <div class="reveal overflow-hidden rounded-lg mb-10">
-          <img loading="lazy" alt="Villa Landscape — wide garden view" class="gallery-img" src="images/projects/landscape-01-villa-uk/img-06.webp" style="aspect-ratio:1.7778;">
+          <div class="gal-frame"><img loading="lazy" alt="Villa Landscape — wide garden view" class="gallery-img" src="images/projects/landscape-01-villa-uk/img-06.webp" style="aspect-ratio:1.7778;"></div>
         </div>
         <div class="masonry masonry-1 masonry-md-1 mb-4 reveal">
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Villa Landscape, wide garden view alternate" class="gallery-img" src="images/projects/landscape-01-villa-uk/img-07.webp" style="aspect-ratio:1.7778;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Villa Landscape, wide garden view alternate" class="gallery-img" src="images/projects/landscape-01-villa-uk/img-07.webp" style="aspect-ratio:1.7778;"></div>
         </div>
         <div class="masonry masonry-2 masonry-md-4 reveal">
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Villa Landscape, detail view 1" class="gallery-img" src="images/projects/landscape-01-villa-uk/img-01.webp" style="aspect-ratio:1.0;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Villa Landscape, detail view 2" class="gallery-img" src="images/projects/landscape-01-villa-uk/img-02.webp" style="aspect-ratio:1.0;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Villa Landscape, detail view 3" class="gallery-img" src="images/projects/landscape-01-villa-uk/img-04.webp" style="aspect-ratio:1.0;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Villa Landscape, detail view 4" class="gallery-img" src="images/projects/landscape-01-villa-uk/img-05.webp" style="aspect-ratio:1.0;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Villa Landscape, detail view 1" class="gallery-img" src="images/projects/landscape-01-villa-uk/img-01.webp" style="aspect-ratio:1.0;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Villa Landscape, detail view 2" class="gallery-img" src="images/projects/landscape-01-villa-uk/img-02.webp" style="aspect-ratio:1.0;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Villa Landscape, detail view 3" class="gallery-img" src="images/projects/landscape-01-villa-uk/img-04.webp" style="aspect-ratio:1.0;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Villa Landscape, detail view 4" class="gallery-img" src="images/projects/landscape-01-villa-uk/img-05.webp" style="aspect-ratio:1.0;"></div>
         </div>
         <div class="grid grid-cols-1 mt-4 reveal">
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Villa Landscape, vertical garden path" class="gallery-img" src="images/projects/landscape-01-villa-uk/img-03.webp" style="aspect-ratio:0.75;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Villa Landscape, vertical garden path" class="gallery-img" src="images/projects/landscape-01-villa-uk/img-03.webp" style="aspect-ratio:0.75;"></div>
         </div>
       </div>
     </article>
@@ -76,7 +76,7 @@
       <div class="px-container-padding-mobile md:px-container-padding-desktop max-w-site mx-auto">
         <div class="reveal mb-16">
           <span class="font-label text-label-caps text-secondary block mb-3 tracking-[0.2em]">PROJECT 02 — IRAQ</span>
-          <h2 class="font-serif text-[40px] md:text-[88px] leading-[0.95] tracking-tight text-primary mb-8">Soran Center</h2>
+          <h2 class="font-display text-[40px] md:text-[88px] leading-[0.95] tracking-tight text-primary mb-8">Soran Center</h2>
           <p class="font-body text-on-surface-variant text-lg max-w-2xl leading-relaxed">
             A civic landscape built around a sweeping red ribbon walkway, fountains, and a domed pavilion — a public space designed for gathering, play, and movement at every scale.
           </p>
@@ -86,7 +86,7 @@
           <img loading="lazy" decoding="async" alt="Soran Center — aerial overview" class="gallery-img" src="images/projects/landscape-02-soran-iraq/img-01.webp" style="aspect-ratio:1.6667;">
         </div>
         <div class="masonry masonry-1 masonry-md-2 reveal">
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Soran Center view 2" class="gallery-img" src="images/projects/landscape-02-soran-iraq/img-02.webp" style="aspect-ratio:1.6667;"></div><div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Soran Center view 3" class="gallery-img" src="images/projects/landscape-02-soran-iraq/img-03.webp" style="aspect-ratio:1.6667;"></div><div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Soran Center view 4" class="gallery-img" src="images/projects/landscape-02-soran-iraq/img-04.webp" style="aspect-ratio:1.6667;"></div><div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Soran Center view 5" class="gallery-img" src="images/projects/landscape-02-soran-iraq/img-05.webp" style="aspect-ratio:1.6667;"></div><div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Soran Center view 6" class="gallery-img" src="images/projects/landscape-02-soran-iraq/img-06.webp" style="aspect-ratio:1.6667;"></div><div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Soran Center view 7" class="gallery-img" src="images/projects/landscape-02-soran-iraq/img-07.webp" style="aspect-ratio:1.6667;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Soran Center view 2" class="gallery-img" src="images/projects/landscape-02-soran-iraq/img-02.webp" style="aspect-ratio:1.6667;"></div><div class="gal-frame"><img loading="lazy" decoding="async" alt="Soran Center view 3" class="gallery-img" src="images/projects/landscape-02-soran-iraq/img-03.webp" style="aspect-ratio:1.6667;"></div><div class="gal-frame"><img loading="lazy" decoding="async" alt="Soran Center view 4" class="gallery-img" src="images/projects/landscape-02-soran-iraq/img-04.webp" style="aspect-ratio:1.6667;"></div><div class="gal-frame"><img loading="lazy" decoding="async" alt="Soran Center view 5" class="gallery-img" src="images/projects/landscape-02-soran-iraq/img-05.webp" style="aspect-ratio:1.6667;"></div><div class="gal-frame"><img loading="lazy" decoding="async" alt="Soran Center view 6" class="gallery-img" src="images/projects/landscape-02-soran-iraq/img-06.webp" style="aspect-ratio:1.6667;"></div><div class="gal-frame"><img loading="lazy" decoding="async" alt="Soran Center view 7" class="gallery-img" src="images/projects/landscape-02-soran-iraq/img-07.webp" style="aspect-ratio:1.6667;"></div>
         </div>
       </div>
     </article>
@@ -98,7 +98,7 @@
       <div class="px-container-padding-mobile md:px-container-padding-desktop max-w-site mx-auto">
         <div class="reveal mb-16">
           <span class="font-label text-label-caps text-secondary block mb-3 tracking-[0.2em]">PROJECT 03 — IRAQ</span>
-          <h2 class="font-serif text-[40px] md:text-[88px] leading-[0.95] tracking-tight text-primary mb-8">Bastora Landscape</h2>
+          <h2 class="font-display text-[40px] md:text-[88px] leading-[0.95] tracking-tight text-primary mb-8">Bastora Landscape</h2>
           <p class="font-body text-on-surface-variant text-lg max-w-2xl leading-relaxed">
             An expansive public landscape rendered in consistent wide-format views — open lawns, mature tree planting, and clear sightlines across the full site.
           </p>
@@ -108,11 +108,11 @@
           <img loading="lazy" decoding="async" alt="Bastora Landscape — wide overview" class="gallery-img" src="images/projects/landscape-03-bastora-iraq/img-01.webp" style="aspect-ratio:1.7773;">
         </div>
         <div class="masonry masonry-1 masonry-md-2 reveal">
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Bastora Landscape view 2" class="gallery-img" src="images/projects/landscape-03-bastora-iraq/img-02.webp" style="aspect-ratio:1.7773;"></div><div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Bastora Landscape view 3" class="gallery-img" src="images/projects/landscape-03-bastora-iraq/img-03.webp" style="aspect-ratio:1.7773;"></div><div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Bastora Landscape view 4" class="gallery-img" src="images/projects/landscape-03-bastora-iraq/img-04.webp" style="aspect-ratio:1.7773;"></div><div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Bastora Landscape view 5" class="gallery-img" src="images/projects/landscape-03-bastora-iraq/img-05.webp" style="aspect-ratio:1.7773;"></div><div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Bastora Landscape view 6" class="gallery-img" src="images/projects/landscape-03-bastora-iraq/img-06.webp" style="aspect-ratio:1.7773;"></div><div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Bastora Landscape view 7" class="gallery-img" src="images/projects/landscape-03-bastora-iraq/img-07.webp" style="aspect-ratio:1.7773;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Bastora Landscape view 2" class="gallery-img" src="images/projects/landscape-03-bastora-iraq/img-02.webp" style="aspect-ratio:1.7773;"></div><div class="gal-frame"><img loading="lazy" decoding="async" alt="Bastora Landscape view 3" class="gallery-img" src="images/projects/landscape-03-bastora-iraq/img-03.webp" style="aspect-ratio:1.7773;"></div><div class="gal-frame"><img loading="lazy" decoding="async" alt="Bastora Landscape view 4" class="gallery-img" src="images/projects/landscape-03-bastora-iraq/img-04.webp" style="aspect-ratio:1.7773;"></div><div class="gal-frame"><img loading="lazy" decoding="async" alt="Bastora Landscape view 5" class="gallery-img" src="images/projects/landscape-03-bastora-iraq/img-05.webp" style="aspect-ratio:1.7773;"></div><div class="gal-frame"><img loading="lazy" decoding="async" alt="Bastora Landscape view 6" class="gallery-img" src="images/projects/landscape-03-bastora-iraq/img-06.webp" style="aspect-ratio:1.7773;"></div><div class="gal-frame"><img loading="lazy" decoding="async" alt="Bastora Landscape view 7" class="gallery-img" src="images/projects/landscape-03-bastora-iraq/img-07.webp" style="aspect-ratio:1.7773;"></div>
         </div>
 
         <div class="mt-24 reveal text-center">
-          <h3 class="font-serif text-3xl md:text-5xl mb-6 text-primary">Continue Exploring</h3>
+          <h3 class="font-display text-3xl md:text-5xl mb-6 text-primary">Continue Exploring</h3>
           <p class="font-body text-base mb-8 max-w-md mx-auto text-on-surface-variant">Discover the rest of our portfolio across villas, interiors, commercial spaces, and more.</p>
           <a href="projects.html" class="return-to-project-btn group inline-flex items-center gap-3 px-10 py-4 font-label text-label-caps uppercase tracking-[0.1em] text-primary" style="--rtp-fill:#171818; --rtp-hover-text:#ffffff; border:1px solid rgba(23,24,24,0.3); border-radius: var(--site-radius);">
             <span class="return-to-project-btn__fill" aria-hidden="true"></span>

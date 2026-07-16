@@ -60,7 +60,6 @@ module.exports = {
         display: ["Spline Sans", "sans-serif"],
         label: ["Spline Sans", "sans-serif"],
         body: ["Public Sans", "sans-serif"],
-        serif: ["Cormorant Garamond", "serif"],
       },
       fontSize: {
         "display-lg": ["72px", { lineHeight: "80px", letterSpacing: "-0.04em", fontWeight: "700" }],

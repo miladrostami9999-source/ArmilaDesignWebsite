@@ -198,64 +198,184 @@ document.addEventListener("DOMContentLoaded", () => {
         success/error message in the form's [data-form-status] element.
   --------------------------------------------------------------------- */
   document.querySelectorAll("form[data-armila-form]").forEach((form) => {
-    // Floating label support for <select> — native CSS can't detect
-    // "has a value" on a select the way :not(:placeholder-shown) works
-    // on inputs, so we toggle a class manually.
-    form.querySelectorAll(".af-select").forEach((select) => {
-      const syncValueState = () => {
-        select.classList.toggle("has-value", select.value !== "");
-      };
-      syncValueState();
-      select.addEventListener("change", syncValueState);
-    });
-
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       const status = form.querySelector("[data-form-status]");
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const submitLabel = form.querySelector("[data-submit-label]");
-      const originalLabel = submitLabel ? submitLabel.textContent : "";
+      const btn = form.querySelector('button[type="submit"]');
+      const lbl = form.querySelector("[data-submit-label]");
+      const original = lbl ? lbl.textContent : "";
 
-      // Honeypot — if a bot filled this hidden field, silently drop it.
-      const honeypot = form.querySelector('input[name="botcheck"]');
-      if (honeypot && honeypot.checked) return;
+      // honeypot — a bot filled the hidden box, so drop it without a word
+      const hp = form.querySelector('input[name="botcheck"]');
+      if (hp && hp.checked) return;
 
-      if (submitBtn) submitBtn.disabled = true;
-      if (submitLabel) submitLabel.textContent = "Sending…";
-      if (status) {
-        status.removeAttribute("data-state");
-        status.textContent = "";
+      const missing = [...form.querySelectorAll("[required]")].find((f) => !f.value.trim());
+      if (missing) {
+        if (status) {
+          status.setAttribute("data-state", "error");
+          status.textContent = "Please fill in every field before sending.";
+        }
+        const focusable = missing.type === "hidden"
+          ? missing.closest("[data-af-dropdown]")?.querySelector(".af-select")
+          : missing;
+        focusable?.focus();
+        return;
       }
 
-      const payload = Object.fromEntries(new FormData(form).entries());
+      if (btn) btn.disabled = true;
+      if (lbl) lbl.textContent = "Sending…";
+      if (status) { status.removeAttribute("data-state"); status.textContent = ""; }
 
       fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(Object.fromEntries(new FormData(form).entries())),
       })
-        .then((response) => response.json().then((json) => ({ ok: response.ok, json })))
-        .then(({ ok, json }) => {
-          if (!ok || !json.success) throw new Error(json.message || "Submission failed");
+        .then((r) => r.json().then((j) => ({ ok: r.ok, j })))
+        .then(({ ok, j }) => {
+          if (!ok || !j.success) throw new Error(j.message || "failed");
           if (status) {
             status.setAttribute("data-state", "ok");
-            status.textContent = "Thank you — your message has been sent. We'll be in touch shortly.";
+            status.textContent = "Thank you — your message is on its way. We'll be in touch shortly.";
           }
           form.reset();
-          form.querySelectorAll(".af-select").forEach((s) => s.classList.remove("has-value"));
+          form.querySelectorAll("[data-af-dropdown]").forEach((d) => {
+            d.querySelector(".af-select")?.classList.remove("has-value");
+            const v = d.querySelector("[data-af-value]"); if (v) v.textContent = "";
+            const i = d.querySelector("[data-af-input]"); if (i) i.value = "";
+          });
         })
         .catch(() => {
           if (status) {
             status.setAttribute("data-state", "error");
-            status.textContent = "Something went wrong sending this form. Please email us directly at Armila.Design16@Gmail.com instead.";
+            status.textContent = "Something went wrong. Please email us directly at Armila.Design16@Gmail.com.";
           }
         })
         .finally(() => {
-          if (submitBtn) submitBtn.disabled = false;
-          if (submitLabel) submitLabel.textContent = originalLabel;
+          if (btn) btn.disabled = false;
+          if (lbl) lbl.textContent = original;
         });
     });
   });
+
+  /* ---------------------------------------------------------------------
+     6b. Custom dropdown. A native <select> renders as an OS menu that
+         can't be eased or themed, which broke the page's rhythm. This is
+         a button + listbox that animates open, and keeps real keyboard
+         semantics: arrows to move, Enter to pick, Escape to close.
+  --------------------------------------------------------------------- */
+  document.querySelectorAll("[data-af-dropdown]").forEach((dd) => {
+    const btn = dd.querySelector(".af-select");
+    const menu = dd.querySelector(".af-menu");
+    const out = dd.querySelector("[data-af-value]");
+    const input = dd.querySelector("[data-af-input]");
+    if (!btn || !menu) return;
+    const opts = [...menu.querySelectorAll("li")];
+    let cursor = -1;
+
+    const open = (v) => {
+      menu.classList.toggle("is-open", v);
+      btn.setAttribute("aria-expanded", String(v));
+      if (v) { cursor = opts.findIndex((o) => o.getAttribute("aria-selected") === "true"); mark(); }
+    };
+    const mark = () => opts.forEach((o, i) => o.classList.toggle("is-cursor", i === cursor));
+    const pick = (o) => {
+      opts.forEach((x) => x.setAttribute("aria-selected", String(x === o)));
+      if (out) out.textContent = o.textContent;
+      if (input) input.value = o.dataset.v || o.textContent;
+      btn.classList.add("has-value");
+      open(false);
+      btn.focus();
+    };
+
+    btn.addEventListener("click", () => open(!menu.classList.contains("is-open")));
+    opts.forEach((o) => o.addEventListener("click", () => pick(o)));
+    btn.addEventListener("keydown", (e) => {
+      const isOpen = menu.classList.contains("is-open");
+      if (["ArrowDown", "ArrowUp"].includes(e.key)) {
+        e.preventDefault();
+        if (!isOpen) return open(true);
+        cursor = (cursor + (e.key === "ArrowDown" ? 1 : -1) + opts.length) % opts.length;
+        mark();
+      } else if (e.key === "Enter" || e.key === " ") {
+        if (isOpen && cursor > -1) { e.preventDefault(); pick(opts[cursor]); }
+      } else if (e.key === "Escape") { open(false); }
+    });
+    document.addEventListener("click", (e) => { if (!dd.contains(e.target)) open(false); });
+  });
+
+  /* ---------------------------------------------------------------------
+     6c. Hero — the clay pass resolves into the beauty pass exactly once.
+         Both are full-screen layers with an animated blur, which is the
+         most expensive thing on the page, so the animation is paused the
+         moment the hero leaves the viewport and never restarts on scroll.
+  --------------------------------------------------------------------- */
+  const heroEl = document.getElementById("hero");
+  if (heroEl) {
+    const tag = document.getElementById("hero-pass-tag");
+    if (tag) {
+      setTimeout(() => { tag.textContent = "Final render"; }, 2800);
+      setTimeout(() => { tag.style.opacity = "0"; }, 5000);
+    }
+    new IntersectionObserver(
+      ([en]) => heroEl.classList.toggle("hero-rest", !en.isIntersecting),
+      { threshold: 0.02 }
+    ).observe(heroEl);
+  }
+
+  /* ---------------------------------------------------------------------
+     6d. Workflow rail. Element positions are measured once and cached —
+         reading getBoundingClientRect() on every scroll frame forces a
+         synchronous layout and is exactly what makes a page feel sticky.
+  --------------------------------------------------------------------- */
+  const railEl = document.getElementById("proc-rail");
+  if (railEl) {
+    const fillEl = document.getElementById("proc-fill");
+    const headEl = document.getElementById("proc-playhead");
+    const barEl = document.getElementById("proc-bar");
+    const passEl = document.getElementById("proc-pass");
+    const pctEl = document.getElementById("proc-pct");
+    const steps = [...railEl.querySelectorAll(".proc-step")];
+    const frames = [...document.querySelectorAll("#proc-frames img")];
+    const NAMES = ["Offset & Extrude", "Divided into Two Floors", "Create Indents",
+                   "Terraces & Canopy", "Vertical Canopy Details", "Add All Details"];
+    let railTop = 0, railH = 1, tops = [], current = -1, queued = false;
+
+    const measure = () => {
+      const sy = window.scrollY || window.pageYOffset;
+      const r = railEl.getBoundingClientRect();
+      railTop = r.top + sy;
+      railH = r.height || 1;
+      tops = steps.map((s) => s.getBoundingClientRect().top + sy);
+      paint();
+    };
+    const paint = () => {
+      const anchor = (window.scrollY || window.pageYOffset) + window.innerHeight * 0.52;
+      const p = Math.max(0, Math.min(1, (anchor - railTop) / railH));
+      if (fillEl) fillEl.style.transform = "scaleY(" + p + ")";
+      if (headEl) headEl.style.transform = "translateY(" + p * (railH - 26) + "px)";
+      if (barEl) barEl.style.transform = "scaleX(" + p + ")";
+      if (pctEl) pctEl.textContent = Math.round(p * 100) + "%";
+      let idx = 0;
+      for (let i = 0; i < tops.length; i++) if (tops[i] <= anchor) idx = i;
+      if (idx !== current) {
+        current = idx;
+        steps.forEach((s, i) => {
+          s.classList.toggle("is-active", i === idx);
+          s.classList.toggle("is-done", i < idx);
+        });
+        frames.forEach((f, i) => f.classList.toggle("is-on", i === idx));
+        if (passEl) passEl.textContent = NAMES[idx] || "";
+      }
+      queued = false;
+    };
+    window.addEventListener("scroll", () => {
+      if (!queued) { queued = true; requestAnimationFrame(paint); }
+    }, { passive: true });
+    window.addEventListener("resize", () => requestAnimationFrame(measure), { passive: true });
+    window.addEventListener("load", measure);
+    measure();
+  }
 
   /* ---------------------------------------------------------------------
      6b. "More details (optional)" collapsible section on the contact form.

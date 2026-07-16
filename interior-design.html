@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@600;700&family=Public+Sans:wght@400;700&family=Cormorant+Garamond:wght@300;400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/style.css?v=4" />
+  <link rel="stylesheet" href="css/style.css?v=5" />
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png" />
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
@@ -19,7 +19,7 @@
   <style>
     /* No-crop rule: every image keeps its native aspect ratio. Colour stays
        fixed on this page — no grayscale/hover-colour behaviour. */
-    .gallery-img { width: 100%; height: auto; display: block; object-fit: contain; }
+    /* frames keep the native aspect ratio; hover behaviour lives in css/input.css */
 
     .project-abdollah { background-color: #f7f3ee; }
     .project-mia       { background-color: #f1ede6; }
@@ -104,10 +104,10 @@
   <main class="pt-[76px]">
 
     <section class="px-container-padding-mobile md:px-container-padding-desktop max-w-site mx-auto mb-24 md:mb-32 reveal">
-      <h1 class="font-serif text-[56px] md:text-[140px] leading-none tracking-tight text-primary-container mb-10 text-center md:text-left">Interior Design</h1>
+      <h1 class="font-display text-[56px] md:text-[140px] leading-none tracking-tight text-primary-container mb-10 text-center md:text-left">Interior Design</h1>
       <div class="flex justify-center md:justify-end">
         <div class="max-w-xl border-l border-outline pl-8">
-          <p class="font-serif text-on-surface-variant leading-relaxed italic text-lg md:text-xl">"A room is not made by walls and a roof, but by the light that falls inside it."</p>
+          <p class="font-display text-on-surface-variant leading-relaxed italic text-lg md:text-xl">"A room is not made by walls and a roof, but by the light that falls inside it."</p>
           <p class="font-body text-on-surface-variant mt-4">Four private interiors across three countries — each shaped around how a family actually lives.</p>
         </div>
       </div>
@@ -118,30 +118,30 @@
       <div class="px-container-padding-mobile md:px-container-padding-desktop max-w-site mx-auto">
         <div class="reveal mb-16">
           <span class="font-label text-label-caps text-secondary block mb-3 tracking-[0.2em]">PROJECT 01 — KUWAIT</span>
-          <h2 class="font-serif text-[40px] md:text-[88px] leading-[0.95] tracking-tight text-primary mb-8">Abdollah's Home</h2>
+          <h2 class="font-display text-[40px] md:text-[88px] leading-[0.95] tracking-tight text-primary mb-8">Abdollah's Home</h2>
           <p class="font-body text-on-surface-variant text-lg max-w-2xl leading-relaxed">
             A warm, layered family home where a soft neutral palette and curated furniture pieces give every room — from the TV lounge to the walk-in closet — its own quiet identity.
           </p>
         </div>
 
         <div class="reveal overflow-hidden rounded-lg mb-16">
-          <img loading="lazy" alt="Abdollah's Home — living room" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-08.webp" style="aspect-ratio:1.0;">
+          <div class="gal-frame"><img loading="lazy" alt="Abdollah's Home — living room" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-08.webp" style="aspect-ratio:1.0;"></div>
         </div>
 
         <div class="masonry masonry-1 masonry-md-2 masonry-lg-3 reveal">
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Abdollah's Home living room, alternate angle" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-09.webp" style="aspect-ratio:1.0;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Abdollah's Home living room detail" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-10.webp" style="aspect-ratio:1.0;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Abdollah's Home TV room" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-13.webp" style="aspect-ratio:1.0;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Abdollah's Home TV room, alternate angle" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-14.webp" style="aspect-ratio:1.0;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Abdollah's Home master bedroom" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-11.webp" style="aspect-ratio:1.0;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Abdollah's Home master bedroom detail" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-12.webp" style="aspect-ratio:1.0;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Abdollah's Home bathroom" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-01.webp" style="aspect-ratio:0.6;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Abdollah's Home bathroom detail" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-02.webp" style="aspect-ratio:0.6;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Abdollah's Home walk-in closet" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-03.webp" style="aspect-ratio:0.6667;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Abdollah's Home dining nook" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-04.webp" style="aspect-ratio:1.0;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Abdollah's Home living room, alternate angle" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-09.webp" style="aspect-ratio:1.0;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Abdollah's Home living room detail" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-10.webp" style="aspect-ratio:1.0;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Abdollah's Home TV room" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-13.webp" style="aspect-ratio:1.0;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Abdollah's Home TV room, alternate angle" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-14.webp" style="aspect-ratio:1.0;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Abdollah's Home master bedroom" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-11.webp" style="aspect-ratio:1.0;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Abdollah's Home master bedroom detail" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-12.webp" style="aspect-ratio:1.0;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Abdollah's Home bathroom" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-01.webp" style="aspect-ratio:0.6;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Abdollah's Home bathroom detail" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-02.webp" style="aspect-ratio:0.6;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Abdollah's Home walk-in closet" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-03.webp" style="aspect-ratio:0.6667;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Abdollah's Home dining nook" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-04.webp" style="aspect-ratio:1.0;"></div>
           
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Abdollah's Home dining nook detail" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-06.webp" style="aspect-ratio:1.0;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Abdollah's Home kitchen mood board" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-07.webp" style="aspect-ratio:1.0;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Abdollah's Home dining nook detail" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-06.webp" style="aspect-ratio:1.0;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Abdollah's Home kitchen mood board" class="gallery-img" src="images/projects/interior-01-abdollah-kuwait/img-07.webp" style="aspect-ratio:1.0;"></div>
         </div>
       </div>
     </article>
@@ -153,7 +153,7 @@
       <div class="px-container-padding-mobile md:px-container-padding-desktop max-w-site mx-auto">
         <div class="reveal mb-16">
           <span class="font-label text-label-caps text-secondary block mb-3 tracking-[0.2em]">PROJECT 02 — GERMANY</span>
-          <h2 class="font-serif text-[40px] md:text-[88px] leading-[0.95] tracking-tight text-primary mb-8">Mia's Home</h2>
+          <h2 class="font-display text-[40px] md:text-[88px] leading-[0.95] tracking-tight text-primary mb-8">Mia's Home</h2>
           <p class="font-body text-on-surface-variant text-lg max-w-2xl leading-relaxed">
             Clean European minimalism — wide-format wide-angle interiors built around natural light, restrained material choices, and an uncluttered sense of calm.
           </p>
@@ -164,12 +164,12 @@
         </div>
 
         <div class="masonry masonry-1 masonry-md-3 reveal">
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Mia's Home interior detail" class="gallery-img" src="images/projects/interior-02-mia-germany/img-03.webp" style="aspect-ratio:1.2;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Mia's Home interior detail, alternate angle" class="gallery-img" src="images/projects/interior-02-mia-germany/img-04.webp" style="aspect-ratio:1.2;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Mia's Home interior detail, third angle" class="gallery-img" src="images/projects/interior-02-mia-germany/img-05.webp" style="aspect-ratio:1.2;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Mia's Home interior detail" class="gallery-img" src="images/projects/interior-02-mia-germany/img-03.webp" style="aspect-ratio:1.2;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Mia's Home interior detail, alternate angle" class="gallery-img" src="images/projects/interior-02-mia-germany/img-04.webp" style="aspect-ratio:1.2;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Mia's Home interior detail, third angle" class="gallery-img" src="images/projects/interior-02-mia-germany/img-05.webp" style="aspect-ratio:1.2;"></div>
         </div>
         <div class="grid grid-cols-1 mt-4 reveal">
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Mia's Home secondary living space" class="gallery-img" src="images/projects/interior-02-mia-germany/img-02.webp" style="aspect-ratio:1.7778;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Mia's Home secondary living space" class="gallery-img" src="images/projects/interior-02-mia-germany/img-02.webp" style="aspect-ratio:1.7778;"></div>
         </div>
       </div>
     </article>
@@ -180,7 +180,7 @@
       <div class="px-container-padding-mobile md:px-container-padding-desktop max-w-site mx-auto">
         <div class="reveal mb-16">
           <span class="font-label text-label-caps text-secondary block mb-3 tracking-[0.2em]">PROJECT 03 — KUWAIT</span>
-          <h2 class="font-serif text-[40px] md:text-[88px] leading-[0.95] tracking-tight text-primary mb-8">Om Razi Home</h2>
+          <h2 class="font-display text-[40px] md:text-[88px] leading-[0.95] tracking-tight text-primary mb-8">Om Razi Home</h2>
           <p class="font-body text-on-surface-variant text-lg max-w-2xl leading-relaxed">
             A five-bedroom residence designed bedroom-by-bedroom — each space carries its own material story while the living room ties the whole home together in soft neutral tones.
           </p>
@@ -192,30 +192,30 @@
 
         <p class="font-label text-label-caps text-secondary tracking-[0.15em] mb-6 reveal">LIVING &amp; COMMON AREAS</p>
         <div class="masonry masonry-1 masonry-md-2 mb-16 reveal">
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Om Razi Home living room, alternate angle" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-02.webp" style="aspect-ratio:1.0;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Om Razi Home living room detail" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-03.webp" style="aspect-ratio:1.0;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Om Razi Home living room, alternate angle" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-02.webp" style="aspect-ratio:1.0;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Om Razi Home living room detail" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-03.webp" style="aspect-ratio:1.0;"></div>
         </div>
 
         <p class="font-label text-label-caps text-secondary tracking-[0.15em] mb-6 reveal">BEDROOMS</p>
         <div class="masonry masonry-1 masonry-md-2 masonry-lg-3 reveal mb-16">
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Om Razi Home bedroom 01" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-08.webp" style="aspect-ratio:1.0;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Om Razi Home bedroom 01, alternate angle" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-09.webp" style="aspect-ratio:1.0;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Om Razi Home bedroom 02" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-10.webp" style="aspect-ratio:1.25;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Om Razi Home bedroom 02, alternate angle" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-11.webp" style="aspect-ratio:1.25;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Om Razi Home bedroom 03" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-12.webp" style="aspect-ratio:1.0;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Om Razi Home bedroom 04" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-13.webp" style="aspect-ratio:1.0;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Om Razi Home bedroom 04, alternate angle" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-14.webp" style="aspect-ratio:1.0;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Om Razi Home bedroom 05" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-15.webp" style="aspect-ratio:1.25;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Om Razi Home bedroom 05, alternate angle" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-16.webp" style="aspect-ratio:1.25;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Om Razi Home bedroom 05, third angle" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-17.webp" style="aspect-ratio:1.25;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Om Razi Home bedroom 01" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-08.webp" style="aspect-ratio:1.0;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Om Razi Home bedroom 01, alternate angle" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-09.webp" style="aspect-ratio:1.0;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Om Razi Home bedroom 02" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-10.webp" style="aspect-ratio:1.25;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Om Razi Home bedroom 02, alternate angle" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-11.webp" style="aspect-ratio:1.25;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Om Razi Home bedroom 03" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-12.webp" style="aspect-ratio:1.0;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Om Razi Home bedroom 04" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-13.webp" style="aspect-ratio:1.0;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Om Razi Home bedroom 04, alternate angle" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-14.webp" style="aspect-ratio:1.0;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Om Razi Home bedroom 05" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-15.webp" style="aspect-ratio:1.25;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Om Razi Home bedroom 05, alternate angle" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-16.webp" style="aspect-ratio:1.25;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Om Razi Home bedroom 05, third angle" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-17.webp" style="aspect-ratio:1.25;"></div>
         </div>
 
         <p class="font-label text-label-caps text-secondary tracking-[0.15em] mb-6 reveal">BATHROOMS</p>
         <div class="masonry masonry-2 masonry-md-4 reveal">
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Om Razi Home bathroom 01" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-04.webp" style="aspect-ratio:0.6667;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Om Razi Home bathroom 01, alternate angle" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-05.webp" style="aspect-ratio:0.6667;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Om Razi Home bathroom 02" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-06.webp" style="aspect-ratio:0.6667;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Om Razi Home bathroom 02, alternate angle" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-07.webp" style="aspect-ratio:0.6667;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Om Razi Home bathroom 01" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-04.webp" style="aspect-ratio:0.6667;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Om Razi Home bathroom 01, alternate angle" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-05.webp" style="aspect-ratio:0.6667;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Om Razi Home bathroom 02" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-06.webp" style="aspect-ratio:0.6667;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Om Razi Home bathroom 02, alternate angle" class="gallery-img" src="images/projects/interior-03-omrazi-kuwait/img-07.webp" style="aspect-ratio:0.6667;"></div>
         </div>
       </div>
     </article>
@@ -227,7 +227,7 @@
       <div class="px-container-padding-mobile md:px-container-padding-desktop max-w-site mx-auto">
         <div class="reveal mb-16">
           <span class="font-label text-label-caps text-secondary block mb-3 tracking-[0.2em]">PROJECT 04 — OMAN</span>
-          <h2 class="font-serif text-[40px] md:text-[88px] leading-[0.95] tracking-tight text-primary mb-8">Nadia Home</h2>
+          <h2 class="font-display text-[40px] md:text-[88px] leading-[0.95] tracking-tight text-primary mb-8">Nadia Home</h2>
           <p class="font-body text-on-surface-variant text-lg max-w-2xl leading-relaxed">
             An airy, light-filled home built around an open living and kitchen plan, with a master suite that carries the same warm, understated palette throughout.
           </p>
@@ -238,27 +238,27 @@
         </div>
 
         <div class="masonry masonry-1 masonry-md-2 mb-4 reveal">
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Nadia Home living room, alternate angle" class="gallery-img" src="images/projects/interior-04-nadia-oman/img-06.webp" style="aspect-ratio:1.25;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Nadia Home living room detail" class="gallery-img" src="images/projects/interior-04-nadia-oman/img-07.webp" style="aspect-ratio:1.25;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Nadia Home living room, alternate angle" class="gallery-img" src="images/projects/interior-04-nadia-oman/img-06.webp" style="aspect-ratio:1.25;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Nadia Home living room detail" class="gallery-img" src="images/projects/interior-04-nadia-oman/img-07.webp" style="aspect-ratio:1.25;"></div>
         </div>
         <div class="masonry masonry-2 masonry-md-4 mb-16 reveal">
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Nadia Home living room, third angle" class="gallery-img" src="images/projects/interior-04-nadia-oman/img-08.webp" style="aspect-ratio:1.25;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Nadia Home living room, fourth angle" class="gallery-img" src="images/projects/interior-04-nadia-oman/img-09.webp" style="aspect-ratio:1.25;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Nadia Home living room, fifth angle" class="gallery-img" src="images/projects/interior-04-nadia-oman/img-10.webp" style="aspect-ratio:1.25;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Nadia Home living room, sixth angle" class="gallery-img" src="images/projects/interior-04-nadia-oman/img-11.webp" style="aspect-ratio:1.25;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Nadia Home living room, third angle" class="gallery-img" src="images/projects/interior-04-nadia-oman/img-08.webp" style="aspect-ratio:1.25;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Nadia Home living room, fourth angle" class="gallery-img" src="images/projects/interior-04-nadia-oman/img-09.webp" style="aspect-ratio:1.25;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Nadia Home living room, fifth angle" class="gallery-img" src="images/projects/interior-04-nadia-oman/img-10.webp" style="aspect-ratio:1.25;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Nadia Home living room, sixth angle" class="gallery-img" src="images/projects/interior-04-nadia-oman/img-11.webp" style="aspect-ratio:1.25;"></div>
         </div>
 
         <div class="masonry masonry-1 masonry-md-2 reveal">
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Nadia Home kitchen" class="gallery-img" src="images/projects/interior-04-nadia-oman/img-04.webp" style="aspect-ratio:1.25;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Nadia Home master bedroom" class="gallery-img" src="images/projects/interior-04-nadia-oman/img-01.webp" style="aspect-ratio:1.0;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Nadia Home kitchen" class="gallery-img" src="images/projects/interior-04-nadia-oman/img-04.webp" style="aspect-ratio:1.25;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Nadia Home master bedroom" class="gallery-img" src="images/projects/interior-04-nadia-oman/img-01.webp" style="aspect-ratio:1.0;"></div>
         </div>
         <div class="masonry masonry-2 mt-4 reveal">
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Nadia Home master bedroom, alternate angle" class="gallery-img" src="images/projects/interior-04-nadia-oman/img-02.webp" style="aspect-ratio:1.0;"></div>
-          <div class="overflow-hidden rounded-lg"><img loading="lazy" decoding="async" alt="Nadia Home master bedroom detail" class="gallery-img" src="images/projects/interior-04-nadia-oman/img-03.webp" style="aspect-ratio:1.0;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Nadia Home master bedroom, alternate angle" class="gallery-img" src="images/projects/interior-04-nadia-oman/img-02.webp" style="aspect-ratio:1.0;"></div>
+          <div class="gal-frame"><img loading="lazy" decoding="async" alt="Nadia Home master bedroom detail" class="gallery-img" src="images/projects/interior-04-nadia-oman/img-03.webp" style="aspect-ratio:1.0;"></div>
         </div>
 
         <div class="mt-24 reveal text-center">
-          <h3 class="font-serif text-3xl md:text-5xl mb-6 text-primary">Continue Exploring</h3>
+          <h3 class="font-display text-3xl md:text-5xl mb-6 text-primary">Continue Exploring</h3>
           <p class="font-body text-base mb-8 max-w-md mx-auto text-on-surface-variant">Discover the rest of our portfolio across villas, interiors, commercial spaces, and more.</p>
           <a href="projects.html" class="return-to-project-btn group inline-flex items-center gap-3 px-10 py-4 font-label text-label-caps uppercase tracking-[0.1em] text-primary" style="--rtp-fill:#171818; --rtp-hover-text:#ffffff; border:1px solid rgba(23,24,24,0.3); border-radius: var(--site-radius);">
             <span class="return-to-project-btn__fill" aria-hidden="true"></span>
@@ -279,7 +279,7 @@
       <!-- Brand + description + social -->
       <div class="md:col-span-5">
         <a class="font-display text-3xl md:text-4xl tracking-tighter text-primary mb-5 inline-block" href="index.html">Armila Design</a>
-        <p class="font-body text-body-md text-on-surface-variant leading-relaxed max-w-sm mb-8 text-justify">
+        <p class="font-body text-body-md text-on-surface-variant leading-relaxed max-w-sm mb-8">
           We don't just visualize architecture—we bring unbuilt ideas to life. At Armila Design Studio, every image is crafted to translate architectural vision into photorealistic experiences, where technical excellence meets minimalist elegance, empowering clients to present their projects with confidence.
         </p>
         <div class="flex flex-wrap gap-3">

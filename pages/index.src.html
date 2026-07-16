@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/style.css?v=4" />
+  <link rel="stylesheet" href="css/style.css?v=5" />
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png" />
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
@@ -23,22 +23,24 @@
   <main class="pt-[76px]">
 
     <!-- 1. Hero -->
-    <section class="relative w-full max-w-site mx-auto px-container-padding-mobile md:px-container-padding-desktop py-12 md:py-24 min-h-[760px] md:min-h-[870px] flex flex-col md:flex-row items-center gap-gutter overflow-hidden">
-      <img
-          alt="Modern architectural villa surrounded by trees and water — Armila Design Studio hero image"
-          class="absolute inset-0 w-full h-full object-cover"
-          style="transform: scale(1.3);" src="images/hero/home-hero.webp"
-          fetchpriority="high"
-          decoding="async"
-          data-parallax
-        >
-      <div class="absolute inset-0 bg-black/60 z-0"></div>
-      <div class="w-full md:w-5/12 flex flex-col justify-center z-10">
-        <span class="font-label text-label-caps uppercase tracking-widest text-white/70 mb-6 inline-block hero-reveal">Architectural Design &amp; High-End Visualization</span>
-        <h1 class="font-headline text-4xl md:text-5xl lg:text-display-lg text-white mb-6 leading-tight hero-reveal hero-reveal-2">Translating Vision to Reality</h1>
-        <p class="font-body text-body-lg text-white/80 mb-10 max-w-md hero-reveal hero-reveal-3">We craft compelling visual narratives and precise architectural spaces — partnering with clients worldwide to turn concepts into built, photorealistic reality.</p>
-        <div class="flex flex-col sm:flex-row gap-4 hero-reveal hero-reveal-4">
-          <a href="projects.html" class="inline-flex items-center justify-center px-8 py-4 backdrop-blur-sm bg-white/10 border border-white/20 text-white font-label text-label-caps uppercase transition-all duration-300 hover:bg-white/20 active:scale-95">View Selected Works</a>
+    <section id="hero" class="hero-ready relative w-full max-w-site mx-auto px-container-padding-mobile md:px-container-padding-desktop py-12 md:py-24 min-h-[760px] md:min-h-[870px] flex flex-col md:flex-row items-center gap-gutter overflow-hidden">
+      <!-- Two renders of the same camera: the clay/override pass loads first and
+           the beauty pass resolves over it once, on arrival. The headline lands
+           with the final frame, so the page finishes rendering as you read it. -->
+      <div class="hero-stack">
+        <img class="hero-pass hero-pass--clay" src="images/hero/hero-clay.webp" alt="" aria-hidden="true" fetchpriority="high" decoding="async">
+        <img class="hero-pass hero-pass--final" src="images/hero/hero-final.webp" alt="Modern architectural villa surrounded by pines and water — Armila Design Studio" decoding="async">
+      </div>
+      <div class="hero-grain" aria-hidden="true"></div>
+      <div class="hero-scrim" aria-hidden="true"></div>
+      <span class="hero-pass-tag" id="hero-pass-tag" aria-hidden="true">Clay — material override</span>
+
+      <div class="w-full md:w-5/12 flex flex-col justify-center relative z-10">
+        <span class="font-label text-label-caps uppercase tracking-widest text-white/70 mb-6 inline-block hero-rise">Architectural Design &amp; High-End Visualization</span>
+        <h1 class="font-headline text-4xl md:text-5xl lg:text-display-lg text-white mb-6 leading-tight hero-rise">Translating Vision to Reality</h1>
+        <p class="font-body text-body-lg text-white/80 mb-10 max-w-md hero-rise">We craft compelling visual narratives and precise architectural spaces — partnering with clients worldwide to turn concepts into built, photorealistic reality.</p>
+        <div class="flex flex-col sm:flex-row gap-4 hero-rise">
+          <a href="projects.html" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary font-label text-label-caps uppercase transition-all duration-300 hover:bg-brand hover:text-white active:scale-95">View Selected Works</a>
           <a href="contact.html" class="inline-flex items-center justify-center px-8 py-4 backdrop-blur-sm bg-white/10 border border-white/20 text-white font-label text-label-caps uppercase transition-all duration-300 hover:bg-white/20 active:scale-95">Discuss a Project</a>
         </div>
       </div>
@@ -144,254 +146,81 @@
 
 
     <!-- 4. Process — Interactive Timeline -->
-    <section class="w-full max-w-site mx-auto px-container-padding-mobile md:px-container-padding-desktop py-[80px] md:py-[120px] border-t border-outline-variant/30 reveal" id="process">
-
-      <!-- Section header -->
-      <div class="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-24">
-        <h2 class="font-headline text-3xl md:text-headline-lg font-bold text-primary tracking-tight uppercase">Our Architectural Workflow</h2>
-        <p class="font-label text-[10px] text-on-surface-variant/60 uppercase tracking-widest mb-2">Architectural &amp; Design Services</p>
+    <!-- 4. Workflow — six passes from one of our own projects. The rail is a
+         playhead: it fills to your scroll position and the drawing beside it
+         advances a pass at a time. Sticky, never pinned — touch scroll stays native. -->
+    <section class="w-full max-w-site mx-auto px-container-padding-mobile md:px-container-padding-desktop py-[80px] md:py-[120px] border-t border-outline-variant/30" id="process">
+      <div class="max-w-xl mb-14 md:mb-20 reveal">
+        <p class="font-label text-[11px] text-on-surface-variant/70 uppercase tracking-[0.18em] mb-4">How we work</p>
+        <h2 class="font-headline text-3xl md:text-headline-lg text-primary tracking-tight mb-4">How a mass becomes a building.</h2>
+        <p class="font-body text-body-md text-on-surface-variant leading-relaxed">Six passes from an empty plot to a finished frame — taken from one of our own projects.</p>
       </div>
 
-      <!-- Desktop / Tablet: Horizontal Timeline -->
-      <div class="hidden md:block workflow-desktop" aria-label="Architectural workflow stages">
-
-        <!-- Timeline track -->
-        <!-- Timeline row: labels above, circles on line, content drops below each node -->
-        <div class="relative" role="tablist" aria-label="Workflow stages">
-
-          <!-- Background line — sits at circle mid level (pt-10 = label height) -->
-          <div class="workflow-track-line absolute left-0 right-0 h-px bg-outline-variant/40 z-0" style="top: calc(2.5rem + 1.75rem)"></div>
-          <!-- Active progress line -->
-          <div class="workflow-progress absolute left-0 h-px bg-primary z-[1] transition-all duration-500 ease-[cubic-bezier(0.65,0,0.35,1)]" style="top: calc(2.5rem + 1.75rem); width:0%"></div>
-
-          <!-- Nodes + labels row -->
-          <div class="relative z-[2] flex justify-between items-start">
-
-            <!-- Node 01 — IDEA -->
-            <div class="workflow-node group flex flex-col items-center cursor-pointer w-[25%]" data-stage="0" role="tab" aria-selected="true" tabindex="0">
-              <span class="workflow-label font-headline font-bold text-[17px] tracking-[0.22em] uppercase text-on-surface-variant/60 transition-all duration-300 mb-7 text-center">IDEA</span>
-              <div class="workflow-circle relative w-[4.5rem] h-[4.5rem] rounded-full border-2 border-outline-variant bg-surface flex items-center justify-center transition-all duration-400 ease-[cubic-bezier(0.34,1.56,0.64,1)] shrink-0">
-                <span class="workflow-num font-headline font-bold text-base text-on-surface-variant transition-colors duration-300">01</span>
-                <div class="workflow-glow absolute inset-0 rounded-full opacity-0 transition-opacity duration-400"></div>
-              </div>
-              <!-- Fixed description — always visible -->
-              <p class="workflow-fixed-desc font-body text-[14px] text-on-surface-variant/70 text-center mt-6 mb-1 leading-snug px-2">Shaping the project's vision.</p>
-              <!-- Icon bullets — revealed on hover/activate -->
-              <div class="workflow-inline-panel pt-5 opacity-0 translate-y-[18px] transition-all duration-400 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] pointer-events-none w-full" aria-hidden="true">
-                <ul class="flex flex-col gap-3">
-                  <li class="workflow-item group/item flex items-center gap-2.5 cursor-default">
-                    <span class="workflow-item-icon flex-shrink-0 w-[15px] h-[15px] text-on-surface-variant/45 transition-colors duration-200 group-hover/item:text-brand">
-                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="5.5" r="2.5"/><path d="M2.5 14.5C2.5 11.5 5 9 8 9S13.5 11.5 13.5 14.5"/></svg>
-                    </span>
-                    <span class="font-label text-[12.5px] tracking-[0.09em] uppercase text-on-surface-variant transition-colors duration-200 group-hover/item:text-brand">Client Brief</span>
-                  </li>
-                  <li class="workflow-item group/item flex items-center gap-2.5 cursor-default">
-                    <span class="workflow-item-icon flex-shrink-0 w-[15px] h-[15px] text-on-surface-variant/45 transition-colors duration-200 group-hover/item:text-brand">
-                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5C5.5 1.5 3.5 3.5 3.5 6C3.5 9.5 8 15 8 15S12.5 9.5 12.5 6C12.5 3.5 10.5 1.5 8 1.5Z"/><circle cx="8" cy="6" r="1.5"/></svg>
-                    </span>
-                    <span class="font-label text-[12.5px] tracking-[0.09em] uppercase text-on-surface-variant transition-colors duration-200 group-hover/item:text-brand">Site Analysis</span>
-                  </li>
-                  <li class="workflow-item group/item flex items-center gap-2.5 cursor-default">
-                    <span class="workflow-item-icon flex-shrink-0 w-[15px] h-[15px] text-on-surface-variant/45 transition-colors duration-200 group-hover/item:text-brand">
-                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5L14 8L8 14.5L2 8Z"/><path d="M5 6L8 4.5L11 6"/></svg>
-                    </span>
-                    <span class="font-label text-[12.5px] tracking-[0.09em] uppercase text-on-surface-variant transition-colors duration-200 group-hover/item:text-brand">Concept Design</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- Node 02 — CREATE -->
-            <div class="workflow-node group flex flex-col items-center cursor-pointer w-[25%]" data-stage="1" role="tab" aria-selected="false" tabindex="-1">
-              <span class="workflow-label font-headline font-bold text-[17px] tracking-[0.22em] uppercase text-on-surface-variant/60 transition-all duration-300 mb-7 text-center">CREATE</span>
-              <div class="workflow-circle relative w-[4.5rem] h-[4.5rem] rounded-full border-2 border-outline-variant bg-surface flex items-center justify-center transition-all duration-400 ease-[cubic-bezier(0.34,1.56,0.64,1)] shrink-0">
-                <span class="workflow-num font-headline font-bold text-base text-on-surface-variant transition-colors duration-300">02</span>
-                <div class="workflow-glow absolute inset-0 rounded-full opacity-0 transition-opacity duration-400"></div>
-              </div>
-              <p class="workflow-fixed-desc font-body text-[14px] text-on-surface-variant/70 text-center mt-6 mb-1 leading-snug px-2">Refining the architectural design.</p>
-              <div class="workflow-inline-panel pt-5 opacity-0 translate-y-[18px] transition-all duration-400 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] pointer-events-none w-full" aria-hidden="true">
-                <ul class="flex flex-col gap-3">
-                  <li class="workflow-item group/item flex items-center gap-2.5 cursor-default">
-                    <span class="workflow-item-icon flex-shrink-0 w-[15px] h-[15px] text-on-surface-variant/45 transition-colors duration-200 group-hover/item:text-brand">
-                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="5" height="5" rx="0.5"/><rect x="9" y="2" width="5" height="5" rx="0.5"/><rect x="2" y="9" width="5" height="5" rx="0.5"/><rect x="9" y="9" width="5" height="5" rx="0.5"/></svg>
-                    </span>
-                    <span class="font-label text-[12.5px] tracking-[0.09em] uppercase text-on-surface-variant transition-colors duration-200 group-hover/item:text-brand">Floor Plans</span>
-                  </li>
-                  <li class="workflow-item group/item flex items-center gap-2.5 cursor-default">
-                    <span class="workflow-item-icon flex-shrink-0 w-[15px] h-[15px] text-on-surface-variant/45 transition-colors duration-200 group-hover/item:text-brand">
-                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2L13.5 5.2V10.8L8 14L2.5 10.8V5.2Z"/><path d="M8 14V8.4M13.5 5.2L8 8.4M2.5 5.2L8 8.4"/></svg>
-                    </span>
-                    <span class="font-label text-[12.5px] tracking-[0.09em] uppercase text-on-surface-variant transition-colors duration-200 group-hover/item:text-brand">3D Visualization</span>
-                  </li>
-                  <li class="workflow-item group/item flex items-center gap-2.5 cursor-default">
-                    <span class="workflow-item-icon flex-shrink-0 w-[15px] h-[15px] text-on-surface-variant/45 transition-colors duration-200 group-hover/item:text-brand">
-                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L8 9.5L14 6.5"/><path d="M2 3.5L8 6.5L14 3.5"/><path d="M2 9.5L8 12.5L14 9.5"/></svg>
-                    </span>
-                    <span class="font-label text-[12.5px] tracking-[0.09em] uppercase text-on-surface-variant transition-colors duration-200 group-hover/item:text-brand">Design Coordination</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- Node 03 — DETAIL -->
-            <div class="workflow-node group flex flex-col items-center cursor-pointer w-[25%]" data-stage="2" role="tab" aria-selected="false" tabindex="-1">
-              <span class="workflow-label font-headline font-bold text-[17px] tracking-[0.22em] uppercase text-on-surface-variant/60 transition-all duration-300 mb-7 text-center">DETAIL</span>
-              <div class="workflow-circle relative w-[4.5rem] h-[4.5rem] rounded-full border-2 border-outline-variant bg-surface flex items-center justify-center transition-all duration-400 ease-[cubic-bezier(0.34,1.56,0.64,1)] shrink-0">
-                <span class="workflow-num font-headline font-bold text-base text-on-surface-variant transition-colors duration-300">03</span>
-                <div class="workflow-glow absolute inset-0 rounded-full opacity-0 transition-opacity duration-400"></div>
-              </div>
-              <p class="workflow-fixed-desc font-body text-[14px] text-on-surface-variant/70 text-center mt-6 mb-1 leading-snug px-2">Preparing for construction.</p>
-              <div class="workflow-inline-panel pt-5 opacity-0 translate-y-[18px] transition-all duration-400 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] pointer-events-none w-full" aria-hidden="true">
-                <ul class="flex flex-col gap-3">
-                  <li class="workflow-item group/item flex items-center gap-2.5 cursor-default">
-                    <span class="workflow-item-icon flex-shrink-0 w-[15px] h-[15px] text-on-surface-variant/45 transition-colors duration-200 group-hover/item:text-brand">
-                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2L14 5L6 13H3V10L11 2Z"/><path d="M9 4L12 7"/></svg>
-                    </span>
-                    <span class="font-label text-[12.5px] tracking-[0.09em] uppercase text-on-surface-variant transition-colors duration-200 group-hover/item:text-brand">Working Drawings</span>
-                  </li>
-                  <li class="workflow-item group/item flex items-center gap-2.5 cursor-default">
-                    <span class="workflow-item-icon flex-shrink-0 w-[15px] h-[15px] text-on-surface-variant/45 transition-colors duration-200 group-hover/item:text-brand">
-                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4H12M4 8H12M4 12H9"/><path d="M11.5 10.5L13 12L15.5 9"/></svg>
-                    </span>
-                    <span class="font-label text-[12.5px] tracking-[0.09em] uppercase text-on-surface-variant transition-colors duration-200 group-hover/item:text-brand">Material Specs</span>
-                  </li>
-                  <li class="workflow-item group/item flex items-center gap-2.5 cursor-default">
-                    <span class="workflow-item-icon flex-shrink-0 w-[15px] h-[15px] text-on-surface-variant/45 transition-colors duration-200 group-hover/item:text-brand">
-                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 1.5H4.5A1 1 0 003.5 2.5V13.5A1 1 0 004.5 14.5H11.5A1 1 0 0012.5 13.5V4L10 1.5Z"/><path d="M10 1.5V4H12.5"/><circle cx="8" cy="9.5" r="1.8"/></svg>
-                    </span>
-                    <span class="font-label text-[12.5px] tracking-[0.09em] uppercase text-on-surface-variant transition-colors duration-200 group-hover/item:text-brand">Permit Documents</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- Node 04 — DELIVER -->
-            <div class="workflow-node group flex flex-col items-center cursor-pointer w-[25%]" data-stage="3" role="tab" aria-selected="false" tabindex="-1">
-              <span class="workflow-label font-headline font-bold text-[17px] tracking-[0.22em] uppercase text-on-surface-variant/60 transition-all duration-300 mb-7 text-center">DELIVER</span>
-              <div class="workflow-circle relative w-[4.5rem] h-[4.5rem] rounded-full border-2 border-outline-variant bg-surface flex items-center justify-center transition-all duration-400 ease-[cubic-bezier(0.34,1.56,0.64,1)] shrink-0">
-                <span class="workflow-num font-headline font-bold text-base text-on-surface-variant transition-colors duration-300">04</span>
-                <div class="workflow-glow absolute inset-0 rounded-full opacity-0 transition-opacity duration-400"></div>
-              </div>
-              <p class="workflow-fixed-desc font-body text-[14px] text-on-surface-variant/70 text-center mt-6 mb-1 leading-snug px-2">Guiding project execution.</p>
-              <div class="workflow-inline-panel pt-5 opacity-0 translate-y-[18px] transition-all duration-400 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] pointer-events-none w-full" aria-hidden="true">
-                <ul class="flex flex-col gap-3">
-                  <li class="workflow-item group/item flex items-center gap-2.5 cursor-default">
-                    <span class="workflow-item-icon flex-shrink-0 w-[15px] h-[15px] text-on-surface-variant/45 transition-colors duration-200 group-hover/item:text-brand">
-                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11H13"/><path d="M4.5 11C4.5 8 6 5.5 8 5.5S11.5 8 11.5 11"/><path d="M8 2.5V5.5"/><path d="M1.5 11C1.5 12.5 2.8 13.5 4.5 13.5H11.5C13.2 13.5 14.5 12.5 14.5 11"/></svg>
-                    </span>
-                    <span class="font-label text-[12.5px] tracking-[0.09em] uppercase text-on-surface-variant transition-colors duration-200 group-hover/item:text-brand">Site Supervision</span>
-                  </li>
-                  <li class="workflow-item group/item flex items-center gap-2.5 cursor-default">
-                    <span class="workflow-item-icon flex-shrink-0 w-[15px] h-[15px] text-on-surface-variant/45 transition-colors duration-200 group-hover/item:text-brand">
-                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="2.5"/><path d="M8 2V3.5M8 12.5V14M14 8H12.5M3.5 8H2M12.24 3.76L11.18 4.82M4.82 11.18L3.76 12.24M12.24 12.24L11.18 11.18M4.82 4.82L3.76 3.76"/></svg>
-                    </span>
-                    <span class="font-label text-[12.5px] tracking-[0.09em] uppercase text-on-surface-variant transition-colors duration-200 group-hover/item:text-brand">Design Coordination</span>
-                  </li>
-                  <li class="workflow-item group/item flex items-center gap-2.5 cursor-default">
-                    <span class="workflow-item-icon flex-shrink-0 w-[15px] h-[15px] text-on-surface-variant/45 transition-colors duration-200 group-hover/item:text-brand">
-                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2L3 4.5V8.5C3 11.5 5.5 14 8 14.5C10.5 14 13 11.5 13 8.5V4.5L8 2Z"/><path d="M5.5 8.5L7 10L10.5 6.5"/></svg>
-                    </span>
-                    <span class="font-label text-[12.5px] tracking-[0.09em] uppercase text-on-surface-variant transition-colors duration-200 group-hover/item:text-brand">Quality Assurance</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
+      <div class="proc-grid">
+        <div class="proc-media">
+          <div class="proc-frames" id="proc-frames">
+          <img class="is-on" src="images/workflow/step1.webp" alt="Design process step 1" loading="lazy" decoding="async">
+          <img src="images/workflow/step2.webp" alt="Design process step 2" loading="lazy" decoding="async">
+          <img src="images/workflow/step3.webp" alt="Design process step 3" loading="lazy" decoding="async">
+          <img src="images/workflow/step4.webp" alt="Design process step 4" loading="lazy" decoding="async">
+          <img src="images/workflow/step5.webp" alt="Design process step 5" loading="lazy" decoding="async">
+          <img src="images/workflow/step6.webp" alt="Design process step 6" loading="lazy" decoding="async">
+          </div>
+          <div class="proc-hud">
+            <span>Pass · <b id="proc-pass">Offset &amp; Extrude</b></span>
+            <span class="proc-hud-bar"><i id="proc-bar"></i></span>
+            <span class="proc-hud-pct" id="proc-pct">0%</span>
           </div>
         </div>
-      </div>
 
-      <!-- Mobile: Vertical auto-advancing timeline -->
-      <div class="block md:hidden workflow-mobile" aria-label="Architectural workflow stages">
-
-        <div class="workflow-mobile-track relative pl-8">
-
-          <!-- Vertical spine line -->
-          <div class="absolute left-[13px] top-0 bottom-0 w-px bg-outline-variant/40"></div>
-          <!-- Active progress spine -->
-          <div class="workflow-mobile-progress absolute left-[13px] top-0 w-px bg-primary transition-all duration-700 ease-[cubic-bezier(0.65,0,0.35,1)]" style="height:0%"></div>
-
-          <!-- Stage 01 — IDEA -->
-          <div class="workflow-mobile-stage relative mb-10" data-mobile-stage="0">
-            <div class="workflow-mobile-node absolute -left-8 top-1 w-7 h-7 rounded-full border-2 border-outline-variant bg-surface flex items-center justify-center transition-all duration-400">
-              <span class="workflow-mobile-num font-headline font-bold text-[9px] text-on-surface-variant transition-colors duration-300">01</span>
-              <div class="workflow-mobile-glow absolute inset-0 rounded-full opacity-0 transition-opacity duration-400"></div>
-            </div>
-            <div class="pl-2">
-              <span class="block font-label text-[9px] tracking-[0.2em] uppercase text-on-surface-variant/60 mb-1.5 transition-colors duration-300 workflow-mobile-label">IDEA</span>
-              <p class="font-body text-[13px] text-on-surface-variant/70 leading-snug mb-2">Shaping the project's vision.</p>
-              <div class="workflow-mobile-content overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.65,0,0.35,1)]" style="max-height:0; opacity:0;">
-                <ul class="flex flex-col gap-2.5 pt-2 pb-3">
-                  <li class="flex items-center gap-2"><span class="flex-shrink-0 w-[13px] h-[13px] text-on-surface-variant/40"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="5.5" r="2.5"/><path d="M2.5 14.5C2.5 11.5 5 9 8 9S13.5 11.5 13.5 14.5"/></svg></span><span class="font-label text-[11px] tracking-[0.09em] uppercase text-on-surface-variant">Client Brief</span></li>
-                  <li class="flex items-center gap-2"><span class="flex-shrink-0 w-[13px] h-[13px] text-on-surface-variant/40"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5C5.5 1.5 3.5 3.5 3.5 6C3.5 9.5 8 15 8 15S12.5 9.5 12.5 6C12.5 3.5 10.5 1.5 8 1.5Z"/><circle cx="8" cy="6" r="1.5"/></svg></span><span class="font-label text-[11px] tracking-[0.09em] uppercase text-on-surface-variant">Site Analysis</span></li>
-                  <li class="flex items-center gap-2"><span class="flex-shrink-0 w-[13px] h-[13px] text-on-surface-variant/40"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5L14 8L8 14.5L2 8Z"/><path d="M5 6L8 4.5L11 6"/></svg></span><span class="font-label text-[11px] tracking-[0.09em] uppercase text-on-surface-variant">Concept Design</span></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- Stage 02 — CREATE -->
-          <div class="workflow-mobile-stage relative mb-10" data-mobile-stage="1">
-            <div class="workflow-mobile-node absolute -left-8 top-1 w-7 h-7 rounded-full border-2 border-outline-variant bg-surface flex items-center justify-center transition-all duration-400">
-              <span class="workflow-mobile-num font-headline font-bold text-[9px] text-on-surface-variant transition-colors duration-300">02</span>
-              <div class="workflow-mobile-glow absolute inset-0 rounded-full opacity-0 transition-opacity duration-400"></div>
-            </div>
-            <div class="pl-2">
-              <span class="block font-label text-[9px] tracking-[0.2em] uppercase text-on-surface-variant/60 mb-1.5 transition-colors duration-300 workflow-mobile-label">CREATE</span>
-              <p class="font-body text-[13px] text-on-surface-variant/70 leading-snug mb-2">Refining the architectural design.</p>
-              <div class="workflow-mobile-content overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.65,0,0.35,1)]" style="max-height:0; opacity:0;">
-                <ul class="flex flex-col gap-2.5 pt-2 pb-3">
-                  <li class="flex items-center gap-2"><span class="flex-shrink-0 w-[13px] h-[13px] text-on-surface-variant/40"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="5" height="5" rx="0.5"/><rect x="9" y="2" width="5" height="5" rx="0.5"/><rect x="2" y="9" width="5" height="5" rx="0.5"/><rect x="9" y="9" width="5" height="5" rx="0.5"/></svg></span><span class="font-label text-[11px] tracking-[0.09em] uppercase text-on-surface-variant">Floor Plans</span></li>
-                  <li class="flex items-center gap-2"><span class="flex-shrink-0 w-[13px] h-[13px] text-on-surface-variant/40"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2L13.5 5.2V10.8L8 14L2.5 10.8V5.2Z"/><path d="M8 14V8.4M13.5 5.2L8 8.4M2.5 5.2L8 8.4"/></svg></span><span class="font-label text-[11px] tracking-[0.09em] uppercase text-on-surface-variant">3D Visualization</span></li>
-                  <li class="flex items-center gap-2"><span class="flex-shrink-0 w-[13px] h-[13px] text-on-surface-variant/40"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5L8 9.5L14 6.5"/><path d="M2 3.5L8 6.5L14 3.5"/><path d="M2 9.5L8 12.5L14 9.5"/></svg></span><span class="font-label text-[11px] tracking-[0.09em] uppercase text-on-surface-variant">Design Coordination</span></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- Stage 03 — DETAIL -->
-          <div class="workflow-mobile-stage relative mb-10" data-mobile-stage="2">
-            <div class="workflow-mobile-node absolute -left-8 top-1 w-7 h-7 rounded-full border-2 border-outline-variant bg-surface flex items-center justify-center transition-all duration-400">
-              <span class="workflow-mobile-num font-headline font-bold text-[9px] text-on-surface-variant transition-colors duration-300">03</span>
-              <div class="workflow-mobile-glow absolute inset-0 rounded-full opacity-0 transition-opacity duration-400"></div>
-            </div>
-            <div class="pl-2">
-              <span class="block font-label text-[9px] tracking-[0.2em] uppercase text-on-surface-variant/60 mb-1.5 transition-colors duration-300 workflow-mobile-label">DETAIL</span>
-              <p class="font-body text-[13px] text-on-surface-variant/70 leading-snug mb-2">Preparing for construction.</p>
-              <div class="workflow-mobile-content overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.65,0,0.35,1)]" style="max-height:0; opacity:0;">
-                <ul class="flex flex-col gap-2.5 pt-2 pb-3">
-                  <li class="flex items-center gap-2"><span class="flex-shrink-0 w-[13px] h-[13px] text-on-surface-variant/40"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2L14 5L6 13H3V10L11 2Z"/><path d="M9 4L12 7"/></svg></span><span class="font-label text-[11px] tracking-[0.09em] uppercase text-on-surface-variant">Working Drawings</span></li>
-                  <li class="flex items-center gap-2"><span class="flex-shrink-0 w-[13px] h-[13px] text-on-surface-variant/40"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4H12M4 8H12M4 12H9"/><path d="M11.5 10.5L13 12L15.5 9"/></svg></span><span class="font-label text-[11px] tracking-[0.09em] uppercase text-on-surface-variant">Material Specs</span></li>
-                  <li class="flex items-center gap-2"><span class="flex-shrink-0 w-[13px] h-[13px] text-on-surface-variant/40"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 1.5H4.5A1 1 0 003.5 2.5V13.5A1 1 0 004.5 14.5H11.5A1 1 0 0012.5 13.5V4L10 1.5Z"/><path d="M10 1.5V4H12.5"/><circle cx="8" cy="9.5" r="1.8"/></svg></span><span class="font-label text-[11px] tracking-[0.09em] uppercase text-on-surface-variant">Permit Documents</span></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- Stage 04 — DELIVER -->
-          <div class="workflow-mobile-stage relative mb-2" data-mobile-stage="3">
-            <div class="workflow-mobile-node absolute -left-8 top-1 w-7 h-7 rounded-full border-2 border-outline-variant bg-surface flex items-center justify-center transition-all duration-400">
-              <span class="workflow-mobile-num font-headline font-bold text-[9px] text-on-surface-variant transition-colors duration-300">04</span>
-              <div class="workflow-mobile-glow absolute inset-0 rounded-full opacity-0 transition-opacity duration-400"></div>
-            </div>
-            <div class="pl-2">
-              <span class="block font-label text-[9px] tracking-[0.2em] uppercase text-on-surface-variant/60 mb-1.5 transition-colors duration-300 workflow-mobile-label">DELIVER</span>
-              <p class="font-body text-[13px] text-on-surface-variant/70 leading-snug mb-2">Guiding project execution.</p>
-              <div class="workflow-mobile-content overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.65,0,0.35,1)]" style="max-height:0; opacity:0;">
-                <ul class="flex flex-col gap-2.5 pt-2 pb-3">
-                  <li class="flex items-center gap-2"><span class="flex-shrink-0 w-[13px] h-[13px] text-on-surface-variant/40"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11H13"/><path d="M4.5 11C4.5 8 6 5.5 8 5.5S11.5 8 11.5 11"/><path d="M8 2.5V5.5"/><path d="M1.5 11C1.5 12.5 2.8 13.5 4.5 13.5H11.5C13.2 13.5 14.5 12.5 14.5 11"/></svg></span><span class="font-label text-[11px] tracking-[0.09em] uppercase text-on-surface-variant">Site Supervision</span></li>
-                  <li class="flex items-center gap-2"><span class="flex-shrink-0 w-[13px] h-[13px] text-on-surface-variant/40"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="2.5"/><path d="M8 2V3.5M8 12.5V14M14 8H12.5M3.5 8H2M12.24 3.76L11.18 4.82M4.82 11.18L3.76 12.24M12.24 12.24L11.18 11.18M4.82 4.82L3.76 3.76"/></svg></span><span class="font-label text-[11px] tracking-[0.09em] uppercase text-on-surface-variant">Design Coordination</span></li>
-                  <li class="flex items-center gap-2"><span class="flex-shrink-0 w-[13px] h-[13px] text-on-surface-variant/40"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2L3 4.5V8.5C3 11.5 5.5 14 8 14.5C10.5 14 13 11.5 13 8.5V4.5L8 2Z"/><path d="M5.5 8.5L7 10L10.5 6.5"/></svg></span><span class="font-label text-[11px] tracking-[0.09em] uppercase text-on-surface-variant">Quality Assurance</span></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
+        <div class="proc-rail" id="proc-rail">
+          <div class="proc-line"><i id="proc-fill"></i></div>
+          <div class="proc-head-dot" id="proc-playhead" aria-hidden="true"></div>
+        <article class="proc-step">
+          <span class="proc-dot" aria-hidden="true"></span>
+          <span class="proc-num font-label text-[12px] tracking-[0.14em] text-on-surface-variant/70 block mb-2">01</span>
+          <h3 class="proc-title font-headline text-2xl md:text-[30px] tracking-tight mb-3">Offset &amp; Extrude</h3>
+          <p class="proc-desc font-body text-[15px] leading-relaxed text-on-surface-variant max-w-md">The plot is offset to the setback line and pulled up as a single mass. Nothing else exists yet.</p>
+          <div class="proc-tags"><span>Site Boundary</span><span>Setback</span><span>Massing</span></div>
+        </article>
+        <article class="proc-step">
+          <span class="proc-dot" aria-hidden="true"></span>
+          <span class="proc-num font-label text-[12px] tracking-[0.14em] text-on-surface-variant/70 block mb-2">02</span>
+          <h3 class="proc-title font-headline text-2xl md:text-[30px] tracking-tight mb-3">Divided into Two Floors</h3>
+          <p class="proc-desc font-body text-[15px] leading-relaxed text-on-surface-variant max-w-md">The mass is split at slab level. The storey rhythm is fixed before a single opening is cut.</p>
+          <div class="proc-tags"><span>Levels</span><span>Slab Datum</span><span>Proportion</span></div>
+        </article>
+        <article class="proc-step">
+          <span class="proc-dot" aria-hidden="true"></span>
+          <span class="proc-num font-label text-[12px] tracking-[0.14em] text-on-surface-variant/70 block mb-2">03</span>
+          <h3 class="proc-title font-headline text-2xl md:text-[30px] tracking-tight mb-3">Create Indents</h3>
+          <p class="proc-desc font-body text-[15px] leading-relaxed text-on-surface-variant max-w-md">Volume is subtracted, never added. Every cut has to earn itself — light, entry, privacy.</p>
+          <div class="proc-tags"><span>Subtraction</span><span>Daylight</span><span>Entry</span></div>
+        </article>
+        <article class="proc-step">
+          <span class="proc-dot" aria-hidden="true"></span>
+          <span class="proc-num font-label text-[12px] tracking-[0.14em] text-on-surface-variant/70 block mb-2">04</span>
+          <h3 class="proc-title font-headline text-2xl md:text-[30px] tracking-tight mb-3">Creating Terraces &amp; Canopy</h3>
+          <p class="proc-desc font-body text-[15px] leading-relaxed text-on-surface-variant max-w-md">The subtractions turn into usable space: terraces above, sheltered thresholds below.</p>
+          <div class="proc-tags"><span>Terraces</span><span>Canopy</span><span>Shelter</span></div>
+        </article>
+        <article class="proc-step">
+          <span class="proc-dot" aria-hidden="true"></span>
+          <span class="proc-num font-label text-[12px] tracking-[0.14em] text-on-surface-variant/70 block mb-2">05</span>
+          <h3 class="proc-title font-headline text-2xl md:text-[30px] tracking-tight mb-3">Vertical Canopy Details</h3>
+          <p class="proc-desc font-body text-[15px] leading-relaxed text-on-surface-variant max-w-md">Fins and reveals give the facade depth and take control of the sun.</p>
+          <div class="proc-tags"><span>Fins</span><span>Reveals</span><span>Solar Control</span></div>
+        </article>
+        <article class="proc-step">
+          <span class="proc-dot" aria-hidden="true"></span>
+          <span class="proc-num font-label text-[12px] tracking-[0.14em] text-on-surface-variant/70 block mb-2">06</span>
+          <h3 class="proc-title font-headline text-2xl md:text-[30px] tracking-tight mb-3">Add All Details</h3>
+          <p class="proc-desc font-body text-[15px] leading-relaxed text-on-surface-variant max-w-md">Glazing, landscape, people, light. The model stops being geometry and becomes a place.</p>
+          <div class="proc-tags"><span>Glazing</span><span>Landscape</span><span>Final Render</span></div>
+        </article>
         </div>
       </div>
-
     </section>
-
 
     <!-- 5. Testimonial + Contact strip -->
     <section class="w-full max-w-site mx-auto bg-primary text-on-primary reveal" id="contact">
@@ -422,7 +251,7 @@
         <div class="p-container-padding-mobile md:p-container-padding-desktop flex flex-col items-center justify-center text-center">
           <h2 class="font-headline text-headline-md md:text-headline-lg mb-6">Let's discuss cooperation!</h2>
           <p class="font-body text-body-md opacity-70 mb-12 max-w-sm">If you have any questions or proposals, reach out — we'll get back to you shortly to talk through your project.</p>
-          <a href="contact.html" class="cta-discuss-btn group inline-flex items-center gap-5 pl-10 pr-3 py-3 rounded-full border border-on-primary/30 w-fit" aria-label="Go to the Contact page to start your project">
+          <a href="contact.html" class="cta-discuss-btn group inline-flex items-center gap-5 pl-10 pr-3 py-3 rounded-full border border-on-primary/30 w-fit transition-colors duration-500" aria-label="Go to the Contact page to start your project">
             <span class="cta-discuss-btn__fill" aria-hidden="true"></span>
             <span class="relative z-[1] font-label text-base md:text-lg uppercase tracking-[0.08em] whitespace-nowrap transition-colors duration-300 ease-out group-hover:text-primary">Start a Conversation</span>
             <span class="relative z-[1] w-14 h-14 rounded-full bg-on-primary text-primary flex items-center justify-center shrink-0 transition-transform duration-500 ease-spring group-hover:rotate-45">
