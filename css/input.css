@@ -19,94 +19,48 @@ html, body {
 }
 
 /* ==========================================================================
-   Page Loader Overlay — White Opaque + Logo Glow Pulse
+   Page Loader Overlay — minimal, inline-SVG mark
    --------------------------------------------------------------------------
-   Fully opaque WHITE background, matching the site's dominant light theme.
-   The logo keeps its ORIGINAL dark line color — no invert. Glow is achieved
-   via layered drop-shadow blurs in the brand/primary dark tone, pulsing to
-   create a soft "lines glowing" breathing effect, fully visible on white.
+   No network request (SVG is inline markup, not an <img>), no layered
+   drop-shadow filters repainting every frame — just flex-centering and a
+   single cheap opacity pulse. Centers correctly by construction (flex on
+   the overlay itself), so no viewport-hack positioning is needed.
    ========================================================================== */
 #page-loader {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  height: 100dvh;
+  inset: 0;
   z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: #f9f9f9;
   opacity: 1;
-  transition: opacity 0.32s ease;
-  pointer-events: all;
+  transition: opacity 0.28s ease;
 }
 #page-loader.loader-out {
   opacity: 0;
   pointer-events: none;
 }
-
-/* Measured from a real device: the overlay's own box came out ~8.5% narrower
-   than the viewport on mobile, so ANY centering solved against that box —
-   margin:auto, flex, grid, all of it — lands 50px left. Rather than keep
-   chasing why the box is wrong, the logo is pinned to the viewport itself
-   with position:fixed, so the overlay's width stops mattering entirely. */
-.page-loader-stack {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 120px;
-  height: 120px;
-  z-index: 10000;
-  pointer-events: none;
+.page-loader-mark {
+  width: 48px;
+  height: 48px;
+  animation: loaderPulse 1.6s ease-in-out infinite;
 }
-#page-loader.loader-out + .page-loader-stack,
-#page-loader.loader-out .page-loader-stack { opacity: 0; }
-
-/* Explicit edges only. `inset:-32px` together with a width set left, right
-   AND width at once — an over-constrained box the browser has to break by
-   silently dropping one edge. Pinning top/left and nulling the opposite
-   edges leaves nothing for it to guess at. */
-.pll {
-  position: absolute;
-  top: -32px;
-  left: -32px;
-  right: auto;
-  bottom: auto;
-  width:  calc(100% + 64px);
-  height: calc(100% + 64px);
-  object-fit: contain;
-  display: block;
+.page-loader-mark path {
+  fill: none;
+  stroke: #171818;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
 }
-
-/* ── Single logo layer, original colors, glow via drop-shadow ─────────── */
-.pll-sharp {
-  animation: pll-glow 2.4s ease-in-out infinite;
-}
-@keyframes pll-glow {
-  0%, 100% {
-    filter:
-      drop-shadow(0 0  3px rgba(23,24,24,0.10))
-      drop-shadow(0 0  8px rgba(23,24,24,0.05));
-    opacity: 0.75;
-  }
-  50% {
-    filter:
-      drop-shadow(0 0  6px rgba(23,24,24,0.38))
-      drop-shadow(0 0 16px rgba(23,24,24,0.22))
-      drop-shadow(0 0 32px rgba(23,24,24,0.12))
-      drop-shadow(0 0 56px rgba(23,24,24,0.05));
-    opacity: 1;
-  }
-}
-
-/* Unused legacy layers kept hidden in case markup still references them */
-.pll-halo, .pll-mid, .pll-tight {
-  display: none;
+@keyframes loaderPulse {
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 1; }
 }
 
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   #page-loader { display: none !important; }
+  .page-loader-mark { animation: none; opacity: 1; }
 }
 
 /* Safety fallback: if JS fails to load for any reason, loader auto-hides
@@ -1221,16 +1175,18 @@ textarea.af-input { resize: none; min-height: 104px; }
     background: #f9f9f9;
     padding-top: 6px;
   }
-  /* The header is fixed, so anything between it and the frame showed through.
-     This block rides along above the frame and is itself hidden behind the
-     header, closing the gap without a visible edge. */
+  /* The header is fixed, so a hairline gap could show through right where
+     .proc-media docks under it once stuck. This strip only needs to be a
+     few px tall to close that seam — it must NOT extend into the section
+     above, or (since it moves with .proc-media even before stickiness
+     kicks in) it paints over content there and reads as a giant empty gap. */
   .proc-media::before {
     content: "";
     position: absolute;
     left: 0;
     right: 0;
     bottom: 100%;
-    height: 240px;
+    height: 8px;
     background: #f9f9f9;
     pointer-events: none;
   }

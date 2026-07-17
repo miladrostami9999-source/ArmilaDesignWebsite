@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
         page-entry animations (hero text, images, etc.) play visibly
         AFTER the loader has faded, not hidden behind it.
   --------------------------------------------------------------------- */
-  const LOADER_REVEAL_DELAY = 680; // ms: loader show (320) + fade (320) + buffer (40)
+  const LOADER_REVEAL_DELAY = 560; // ms: loader show (250) + fade (280) + buffer (30)
 
   const startRevealObserver = () => {
     const revealEls = document.querySelectorAll(".reveal");
@@ -508,7 +508,7 @@ document.addEventListener("DOMContentLoaded", () => {
        animation so opacity transitions work for navigation. */
     document.documentElement.classList.add("js-loader");
 
-    const ENTER_DELAY_MS = 320; // how long the glow animation plays before hiding
+    const ENTER_DELAY_MS = 250; // brief minimum show time before hiding, avoids a flash-of-loader on fast loads
 
     /* Initial load: let glow animate briefly, then fade out loader */
     window.setTimeout(() => loader.classList.add("loader-out"), ENTER_DELAY_MS);
@@ -545,7 +545,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         loader.classList.remove("loader-out");
         loader.addEventListener("transitionend", go, { once: true });
-        window.setTimeout(go, 450); /* backup: slightly longer than the 320ms CSS transition */
+        window.setTimeout(go, 380); /* backup: slightly longer than the 280ms CSS transition */
       });
 
       /* Back/forward cache: loader may still be visible — hide it */
