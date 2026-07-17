@@ -338,7 +338,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const steps = [...railEl.querySelectorAll(".proc-step")];
     const frames = [...document.querySelectorAll("#proc-frames img")];
     const NAMES = ["Offset & Extrude", "Divided into Two Floors", "Create Indents",
-                   "Terraces & Canopy", "Vertical Canopy Details"];
+                   "Terraces & Canopy", "Vertical Canopy Details", "Add All Details"];
     let railTop = 0, railH = 1, tops = [], current = -1, queued = false;
 
     const measure = () => {
